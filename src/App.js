@@ -7,7 +7,6 @@ function App() {
   const [email, setEmail] = useState('');
   const [currentModel, setCurrentModel] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
-  // Define showError state
   const [showError, setShowError] = useState(false);
 
   const aiModels = [
@@ -68,7 +67,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans">
+    <div className="bg-white font-sans">
       {/* Header */}
       <header className="fixed top-0 w-full bg-white border-b border-gray-100 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -104,32 +103,35 @@ function App() {
       </header>
 
       {/* Hero Section */}
-      <section className="min-h-screen pt-36 pb-24 px-4 flex items-center">
+      <section className="min-h-screen flex flex-col justify-center pt-16 pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="mb-14">
-            <h1 className="text-5xl md:text-6xl font-bold text-center leading-tight">
-              <span 
-                className={`inline-block transition-all duration-500 ease-in-out ${
-                  transitioning ? 'opacity-0 transform -translate-y-2' : 'opacity-100 transform translate-y-0'
-                }`}
-              >
-                Access to{" "}
+          <div className="mb-16">
+            {/* Fixed height container to prevent layout shifts */}
+            <div className="h-24 md:h-28 flex items-center justify-center mb-4">
+              <h1 className="text-5xl md:text-6xl font-bold text-center leading-tight">
                 <span 
-                  style={{
-                    color: aiModels[currentModel].color,
-                    display: 'inline'
-                  }}
+                  className={`inline-block transition-all duration-500 ease-in-out ${
+                    transitioning ? 'opacity-0 transform -translate-y-2' : 'opacity-100 transform translate-y-0'
+                  }`}
                 >
-                  {aiModels[currentModel].name}
+                  Access to{" "}
+                  <span 
+                    style={{
+                      color: aiModels[currentModel].color,
+                      display: 'inline'
+                    }}
+                  >
+                    {aiModels[currentModel].name}
+                  </span>
                 </span>
-              </span>
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-600 mt-8 max-w-3xl mx-auto">
+              </h1>
+            </div>
+            <p className="text-xl md:text-2xl text-gray-600 mt-4 max-w-3xl mx-auto">
               All the latest AI models in one place
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
+          <form onSubmit={handleSubmit} className="max-w-md mx-auto">
             <input
               type="email"
               value={email}
@@ -161,18 +163,18 @@ function App() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="min-h-screen py-20 px-4 flex items-center">
+      <section id="features" className="min-h-screen flex flex-col justify-center py-16 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">One platform for all AI models</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">Access all models through a single interface</p>
           </div>
           
-          <div className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="bg-white p-6 rounded-xl border border-gray-100 hover:border-gray-200 transition-all hover:shadow-sm shadow-sm bg-gray-50/30"
+                className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all"
               >
                 <div className="w-12 h-12 bg-gray-900 text-white rounded-xl flex items-center justify-center mb-5">
                   {feature.icon}
@@ -188,23 +190,23 @@ function App() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="min-h-screen py-20 px-4 flex items-center">
+      <section id="pricing" className="min-h-screen flex flex-col justify-center py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Simple, transparent pricing</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">Choose the plan that works best for you</p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Free Tier */}
-            <div className="bg-white p-10 rounded-xl border border-gray-200 hover:border-gray-300 transition-all hover:shadow-md shadow-sm bg-gray-50/20">
-              <div className="mb-8">
+            <div className="bg-gray-50 p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all">
+              <div className="mb-6">
                 <h3 className="text-2xl font-bold text-gray-900">Free</h3>
                 <p className="text-gray-600 mt-2">Basic features</p>
-                <div className="mt-5 text-4xl font-bold">$0<span className="text-xl text-gray-500 font-normal">/month</span></div>
+                <div className="mt-4 text-4xl font-bold">$0<span className="text-xl text-gray-500 font-normal">/month</span></div>
               </div>
               
-              <ul className="space-y-4 mb-8">
+              <ul className="space-y-3 mb-8">
                 <li className="flex items-center text-gray-700">
                   <Check className="w-5 h-5 text-gray-900 mr-3 flex-shrink-0" />
                   <span>Sample text</span>
@@ -219,22 +221,22 @@ function App() {
                 </li>
               </ul>
               
-              <button className="w-full border-2 border-gray-900 text-gray-900 px-6 py-3 rounded-xl hover:bg-gray-50 transition-all font-medium">
+              <button className="w-full border-2 border-gray-900 text-gray-900 px-6 py-3 rounded-xl hover:bg-gray-100 transition-all font-medium">
                 Sign Up
               </button>
             </div>
 
             {/* Premium Tier */}
-            <div className="bg-gray-900 text-white p-10 rounded-xl hover:shadow-md transition-all">
+            <div className="bg-gray-900 text-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all">
               <div>
-                <div className="mb-8">
+                <div className="mb-6">
                   <h3 className="text-2xl font-bold">Premium</h3>
                   <p className="text-gray-300 mt-2">Enhanced capabilities</p>
-                  <div className="mt-5 text-4xl font-bold">$20<span className="text-xl text-gray-400 font-normal">/month</span></div>
+                  <div className="mt-4 text-4xl font-bold">$20<span className="text-xl text-gray-400 font-normal">/month</span></div>
                   <p className="text-blue-300 text-sm mt-1">Limited time offer</p>
                 </div>
                 
-                <ul className="space-y-4 mb-8">
+                <ul className="space-y-3 mb-8">
                   <li className="flex items-center">
                     <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-3 flex-shrink-0">
                       <Check className="w-3 h-3 text-white" />
