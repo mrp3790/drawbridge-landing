@@ -3,11 +3,12 @@ import { MessageSquare, Zap, Key, Server, Check, ArrowRight, Shield } from 'luci
 // Import path for logo - make sure logo.png exists in this location
 // import logo from './assets/logo.png';
 
-const LandingPage = () => {
+function App() {
   const [email, setEmail] = useState('');
   const [currentModel, setCurrentModel] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+  // Define showError state
+  const [showError, setShowError] = useState(false);
 
   const aiModels = [
     { name: "o3-mini", color: "#9c27b0" },
@@ -60,11 +61,10 @@ const LandingPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Email submitted:', email);
-    setShowSuccess(true);
+    setShowError(true);
     setTimeout(() => {
-      setEmail('');
-      setShowSuccess(false);
-    }, 2000);
+      setShowError(false);
+    }, 3000);
   };
 
   return (
@@ -104,7 +104,7 @@ const LandingPage = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="pt-36 pb-24 px-4">
+      <section className="min-h-screen pt-36 pb-24 px-4 flex items-center">
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-14">
             <h1 className="text-5xl md:text-6xl font-bold text-center leading-tight">
@@ -161,7 +161,7 @@ const LandingPage = () => {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 px-4">
+      <section id="features" className="min-h-screen py-20 px-4 flex items-center">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">One platform for all AI models</h2>
@@ -188,7 +188,7 @@ const LandingPage = () => {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-20 px-4">
+      <section id="pricing" className="min-h-screen py-20 px-4 flex items-center">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Simple, transparent pricing</h2>
@@ -272,6 +272,6 @@ const LandingPage = () => {
       </footer>
     </div>
   );
-};
+}
 
-export default LandingPage;
+export default App;
