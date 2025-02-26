@@ -22,7 +22,6 @@ function App() {
     
     // Text-to-Speech
     { name: "ElevenLabs Helio", color: "#ffc107", type: "speech" },
-    { name: "OpenAI TTS-2", color: "#4285f4", type: "speech" },
     { name: "PlayHT 2.0", color: "#607d8b", type: "speech" },
   ];
 
@@ -101,7 +100,7 @@ function App() {
     {
       icon: <Server className="w-7 h-7" />,
       title: "Private Data",
-      description: "Enhanced privacy for sensitive conversations"
+      description: "Enhanced privacy for sensitive interactions"
     }
   ];
 
@@ -175,7 +174,7 @@ function App() {
               </h1>
             </div>
             <p className="text-xl md:text-2xl text-gray-600 mt-4 max-w-3xl mx-auto">
-              All the latest AI in one place
+              All the latest AI technology in one place
             </p>
           </div>
 
