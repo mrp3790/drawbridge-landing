@@ -86,8 +86,8 @@ const LandingPage = () => {
               {/* Logo */}
               <div className="h-9 w-9 overflow-hidden group-hover:scale-105 transition-transform duration-300">
                 <img 
-                  src="/api/placeholder/36/36" 
-                  alt="Drawbridge Logo" 
+                  src="/logo.png" 
+                  alt="Drawbridge logo" 
                   className="w-full h-full object-contain"
                 />
               </div>
