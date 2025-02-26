@@ -66,15 +66,15 @@ function App() {
 
   return (
     <div className="bg-white font-sans">
-      {/* Fixed Header with Perfect Logo Alignment */}
+      {/* Header with forced left alignment */}
       <header className="fixed top-0 w-full bg-white border-b border-gray-100 z-50">
-        <div className="max-w-5xl mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center" style={{ marginLeft: '-1.5rem' }}>
               <img 
                 src={logo} 
                 alt="Drawbridge Logo" 
-                className="w-8 h-8 object-contain" 
+                className="w-8 h-8 ml-6 mr-2" 
               />
               <span className="text-xl font-semibold text-gray-800">Drawbridge</span>
             </div>
@@ -182,61 +182,67 @@ function App() {
         </div>
       </section>
 
-      {/* Pricing Section with Lorem Ipsum */}
+      {/* Pricing Section */}
       <section id="pricing" className="min-h-screen flex flex-col justify-center py-16 px-4">
-        <div className="max-w-5xl mx-auto w-full">
+        <div className="max-w-7xl mx-auto w-full">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Simple, transparent pricing</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">Choose the plan that works best for you</p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-8 mx-auto px-4">
-            <div className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Free</h3>
-              <div className="text-4xl font-bold mb-6">$0<span className="text-xl text-gray-500">/month</span></div>
-              <ul className="space-y-4 mb-8">
+          <div className="flex flex-col md:flex-row justify-center items-stretch gap-8 mx-auto w-full max-w-6xl px-4">
+            <div className="flex-1 bg-gray-50 p-8 md:p-10 rounded-xl border border-gray-200 shadow-sm flex flex-col">
+              <div className="mb-8">
+                <h3 className="text-2xl font-bold text-gray-900">Free</h3>
+                <div className="mt-4 text-4xl font-bold">$0<span className="text-xl text-gray-500 font-normal">/month</span></div>
+              </div>
+              
+              <ul className="space-y-4 mb-8 flex-grow">
                 {[1, 2, 3].map((i) => (
                   <li key={i} className="flex items-center text-gray-700">
-                    <Check className="w-5 h-5 text-gray-900 mr-3" />
-                    <span>Lorem ipsum dolor sit amet</span>
+                    <Check className="w-5 h-5 text-gray-900 mr-3 flex-shrink-0" />
+                    <span className="text-base">Lorem ipsum dolor sit amet</span>
                   </li>
                 ))}
               </ul>
-              <button className="w-full bg-gray-900 text-white py-3 rounded-xl hover:bg-gray-800 transition-all">
-                Get Started
+              
+              <button className="w-full border-2 border-gray-900 text-gray-900 px-6 py-3 rounded-xl hover:bg-gray-200 transition-all font-medium">
+                Sign Up
               </button>
             </div>
 
-            <div className="bg-gray-900 text-white p-8 rounded-xl shadow-md">
-              <h3 className="text-2xl font-bold mb-4">Premium</h3>
-              <div className="text-4xl font-bold mb-6">$20<span className="text-xl text-gray-400">/month</span></div>
-              <ul className="space-y-4 mb-8">
+            <div className="flex-1 bg-gray-900 text-white p-8 md:p-10 rounded-xl shadow-md flex flex-col">
+              <div className="mb-8">
+                <h3 className="text-2xl font-bold">Premium</h3>
+                <div className="mt-4 text-4xl font-bold">$20<span className="text-xl text-gray-400 font-normal">/month</span></div>
+              </div>
+              
+              <ul className="space-y-4 mb-8 flex-grow">
                 {[1, 2, 3].map((i) => (
                   <li key={i} className="flex items-center">
-                    <Check className="w-5 h-5 text-white mr-3" />
-                    <span>Lorem ipsum dolor sit amet</span>
+                    <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-3 flex-shrink-0">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="text-base">Lorem ipsum dolor sit amet</span>
                   </li>
                 ))}
               </ul>
-              <button className="w-full bg-white text-gray-900 py-3 rounded-xl hover:bg-gray-100 transition-all">
-                Upgrade Now
+              
+              <button className="w-full bg-white text-gray-900 px-6 py-3 rounded-xl hover:bg-gray-100 transition-all font-medium">
+                Coming Soon
               </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="py-8 border-t border-gray-100">
-        <div className="max-w-5xl mx-auto px-4 text-center text-gray-600">
+        <div className="max-w-7xl mx-auto px-4 text-center text-gray-600">
           © 2024 Drawbridge
         </div>
       </footer>
     </div>
   );
-}
-
-export default App;
 }
 
 export default App;
