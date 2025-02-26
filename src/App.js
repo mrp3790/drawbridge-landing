@@ -72,8 +72,8 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              {/* Logo */}
-              <div className="h-9 w-9 mr-2">
+              {/* Logo - Fixed indentation */}
+              <div className="flex-shrink-0 h-9 w-9 mr-3">
                 <img src={logo} alt="Drawbridge Logo" className="w-full h-full object-contain" />
               </div>
               <span className="text-xl font-semibold text-gray-800">Drawbridge</span>
@@ -185,17 +185,17 @@ function App() {
         </div>
       </section>
 
-      {/* Pricing Section */}
+      {/* Pricing Section - Fixed width */}
       <section id="pricing" className="min-h-screen flex flex-col justify-center py-16 px-4">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto w-full">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Simple, transparent pricing</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">Choose the plan that works best for you</p>
           </div>
           
-          <div className="flex flex-col md:flex-row justify-center items-stretch gap-10 mx-auto w-full max-w-5xl px-4">
+          <div className="flex flex-col md:flex-row justify-center items-stretch gap-8 mx-auto w-full max-w-6xl px-4">
             {/* Free Tier */}
-            <div className="flex-1 bg-gray-50 p-12 rounded-xl border border-gray-200 shadow-sm flex flex-col">
+            <div className="flex-1 bg-gray-50 p-8 md:p-10 rounded-xl border border-gray-200 shadow-sm flex flex-col">
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-gray-900">Free</h3>
                 <p className="text-gray-600 mt-2">Basic features</p>
@@ -223,7 +223,7 @@ function App() {
             </div>
 
             {/* Premium Tier */}
-            <div className="flex-1 bg-gray-900 text-white p-12 rounded-xl shadow-md flex flex-col">
+            <div className="flex-1 bg-gray-900 text-white p-8 md:p-10 rounded-xl shadow-md flex flex-col">
               <div>
                 <div className="mb-8">
                   <h3 className="text-2xl font-bold">Premium</h3>
