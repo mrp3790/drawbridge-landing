@@ -34,35 +34,6 @@ function App() {
     return () => clearInterval(intervalId);
   }, []);
 
-  // Add smooth scrolling
-  useEffect(() => {
-    // Add smooth scroll behavior to html
-    document.documentElement.style.scrollBehavior = 'smooth';
-    
-    // Optional: Add active section detection
-    const handleScroll = () => {
-      const sections = document.querySelectorAll('section');
-      const scrollPosition = window.scrollY + window.innerHeight / 3;
-      
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionBottom = sectionTop + section.offsetHeight;
-        
-        if (scrollPosition >= sectionTop && scrollPosition <= sectionBottom) {
-          section.classList.add('active-section');
-        } else {
-          section.classList.remove('active-section');
-        }
-      });
-    };
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      document.documentElement.style.scrollBehavior = 'auto';
-    };
-  }, []);
-
   const features = [
     {
       icon: <MessageSquare className="w-7 h-7" />,
@@ -132,7 +103,7 @@ function App() {
       </header>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col justify-center pt-16 pb-16 px-4 transition-opacity duration-500 ease-in-out">
+      <section className="min-h-screen flex flex-col justify-center pt-16 pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-16">
             {/* Fixed height container to prevent layout shifts */}
@@ -192,7 +163,7 @@ function App() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="min-h-screen flex flex-col justify-center py-16 px-4 bg-gray-50 transition-opacity duration-500 ease-in-out">
+      <section id="features" className="min-h-screen flex flex-col justify-center py-16 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">One platform for all AI models</h2>
@@ -203,7 +174,7 @@ function App() {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 duration-300"
+                className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all"
               >
                 <div className="w-14 h-14 bg-gray-900 text-white rounded-xl flex items-center justify-center mb-5">
                   {feature.icon}
@@ -219,16 +190,16 @@ function App() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="min-h-screen flex flex-col justify-center py-16 px-4 transition-opacity duration-500 ease-in-out">
+      <section id="pricing" className="min-h-screen flex flex-col justify-center py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Simple, transparent pricing</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">Choose the plan that works best for you</p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-10 mx-auto">
             {/* Free Tier */}
-            <div className="bg-gray-50 p-10 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 duration-300">
+            <div className="w-full max-w-lg bg-gray-50 p-12 rounded-xl border border-gray-200 shadow-sm">
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-gray-900">Free</h3>
                 <p className="text-gray-600 mt-2">Basic features</p>
@@ -256,7 +227,7 @@ function App() {
             </div>
 
             {/* Premium Tier */}
-            <div className="bg-gray-900 text-white p-10 rounded-xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 duration-300">
+            <div className="w-full max-w-lg bg-gray-900 text-white p-12 rounded-xl shadow-md">
               <div>
                 <div className="mb-8">
                   <h3 className="text-2xl font-bold">Premium</h3>
@@ -301,18 +272,6 @@ function App() {
           © 2024 Drawbridge
         </div>
       </footer>
-      
-      {/* Add custom styles */}
-      <style jsx="true">{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .active-section {
-          animation: fadeIn 0.5s ease-out;
-        }
-      `}</style>
     </div>
   );
 }
