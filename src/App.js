@@ -142,11 +142,8 @@ const LandingPage = () => {
               type="submit"
               className="w-full bg-gray-900 text-white px-6 py-4 rounded-xl hover:bg-gray-800 transition-all text-lg font-medium"
             >
-              {showSuccess ? (
-                <>
-                  <Check className="inline-block w-5 h-5 mr-2" />
-                  <span>Email Submitted</span>
-                </>
+              {showError ? (
+                <span className="text-red-300">Service not available yet</span>
               ) : (
                 <>
                   <span>Join Waitlist</span>
@@ -175,7 +172,7 @@ const LandingPage = () => {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="bg-white p-6 rounded-xl border border-gray-100 hover:border-gray-200 transition-all hover:shadow-sm"
+                className="bg-white p-6 rounded-xl border border-gray-100 hover:border-gray-200 transition-all hover:shadow-sm shadow-sm bg-gray-50/30"
               >
                 <div className="w-12 h-12 bg-gray-900 text-white rounded-xl flex items-center justify-center mb-5">
                   {feature.icon}
@@ -200,7 +197,7 @@ const LandingPage = () => {
           
           <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
             {/* Free Tier */}
-            <div className="bg-white p-10 rounded-xl border border-gray-200 hover:border-gray-300 transition-all hover:shadow-md">
+            <div className="bg-white p-10 rounded-xl border border-gray-200 hover:border-gray-300 transition-all hover:shadow-md shadow-sm bg-gray-50/20">
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-gray-900">Free</h3>
                 <p className="text-gray-600 mt-2">Basic features</p>
