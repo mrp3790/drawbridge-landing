@@ -9,15 +9,15 @@ function App() {
   const [showError, setShowError] = useState(false);
 
   const aiModels = [
-    { name: "GPT-4o", color: "#ff5722" },
-    { name: "Claude 3.7 Sonnet", color: "#8e44ad" },
-    { name: "Deepseek-R1", color: "#1e88e5" },
-    { name: "Grok-3", color: "#e91e63" },
+    { name: "GPT-4o", color: "#10a37f" },
+    { name: "Claude 3.7 Sonnet", color: "#ff6600" },
+    { name: "Deepseek-R1", color: "#0066ff" },
+    { name: "Grok-3", color: "#8e44ad" },
     { name: "o3-mini", color: "#9c27b0" },
     { name: "Qwen2.5-Max", color: "#00bcd4" },
     { name: "Gemini 2.0 Flash", color: "#4285f4" },
     { name: "Llama-3.3", color: "#fb8c00" },
-    { name: "o1-preview", color: "#10a37f" }
+    { name: "o1-preview", color: "#ff5722" }
   ];
 
   // AI model rotation effect
@@ -71,7 +71,7 @@ function App() {
       <header className="fixed top-0 w-full bg-white border-b border-gray-100 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center">
               {/* Logo */}
               <div className="h-9 w-9 mr-2">
                 <img src={logo} alt="Drawbridge Logo" className="w-full h-full object-contain" />
@@ -193,9 +193,9 @@ function App() {
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">Choose the plan that works best for you</p>
           </div>
           
-          <div className="flex flex-col md:flex-row justify-center items-stretch gap-10 mx-auto max-w-6xl">
+          <div className="flex flex-col md:flex-row justify-center items-stretch gap-10 mx-auto w-full max-w-5xl px-4">
             {/* Free Tier */}
-            <div className="w-full md:w-1/2 bg-gray-50 p-12 rounded-xl border border-gray-200 shadow-sm flex flex-col">
+            <div className="flex-1 bg-gray-50 p-12 rounded-xl border border-gray-200 shadow-sm flex flex-col">
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-gray-900">Free</h3>
                 <p className="text-gray-600 mt-2">Basic features</p>
@@ -223,7 +223,7 @@ function App() {
             </div>
 
             {/* Premium Tier */}
-            <div className="w-full md:w-1/2 bg-gray-900 text-white p-12 rounded-xl shadow-md flex flex-col">
+            <div className="flex-1 bg-gray-900 text-white p-12 rounded-xl shadow-md flex flex-col">
               <div>
                 <div className="mb-8">
                   <h3 className="text-2xl font-bold">Premium</h3>
