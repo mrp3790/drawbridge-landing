@@ -66,60 +66,43 @@ function App() {
 
   return (
     <div className="bg-white font-sans">
-      {/* Fixed Header with Perfect Logo Alignment */}
+      {/* Simplified Header with Zero Indentation */}
       <header className="fixed top-0 w-full bg-white border-b border-gray-100 z-50">
         <div className="max-w-5xl mx-auto px-4">
-          <div className="flex justify-between items-center h-16">
+          <div className="h-16 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <img 
                 src={logo} 
-                alt="Drawbridge Logo" 
+                alt="Drawbridge" 
                 className="w-8 h-8 object-contain" 
               />
               <span className="text-xl font-semibold text-gray-800">Drawbridge</span>
             </div>
             
-            <nav className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-gray-600 hover:text-gray-800 transition-all">Features</a>
-              <a href="#pricing" className="text-gray-600 hover:text-gray-800 transition-all">Pricing</a>
-              <button className="bg-gray-900 text-white px-5 py-2 rounded-xl hover:bg-gray-800 transition-all">
+            <nav className="hidden md:flex items-center gap-8">
+              <a href="#features" className="text-gray-600 hover:text-gray-800">Features</a>
+              <a href="#pricing" className="text-gray-600 hover:text-gray-800">Pricing</a>
+              <button className="bg-gray-900 text-white px-4 py-2 rounded-xl hover:bg-gray-800">
                 Sign In
               </button>
             </nav>
-            
-            <button className="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col justify-center pt-16 pb-16 px-4">
+      <main className="pt-32 pb-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-16">
-            <div className="h-24 md:h-28 flex items-center justify-center mb-4">
-              <h1 className="text-5xl md:text-6xl font-bold text-center leading-tight">
-                <span 
-                  className={`inline-block transition-all duration-500 ease-in-out ${
-                    transitioning ? 'opacity-0 transform -translate-y-2' : 'opacity-100 transform translate-y-0'
-                  }`}
-                >
-                  Access to{" "}
-                  <span 
-                    style={{
-                      color: aiModels[currentModel].color,
-                      display: 'inline'
-                    }}
-                  >
-                    {aiModels[currentModel].name}
-                  </span>
+            <h1 className="text-5xl md:text-6xl font-bold">
+              <span className={`inline-block transition-all duration-500 ${transitioning ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'}`}>
+                Access to{" "}
+                <span style={{ color: aiModels[currentModel].color }}>
+                  {aiModels[currentModel].name}
                 </span>
-              </h1>
-            </div>
-            <p className="text-xl md:text-2xl text-gray-600 mt-4 max-w-3xl mx-auto">
+              </span>
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-600 mt-6">
               All the latest AI models in one place
             </p>
           </div>
@@ -130,95 +113,79 @@ function App() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Your email"
-              className="w-full px-6 py-4 rounded-xl border border-gray-200 focus:border-gray-400 focus:outline-none mb-4 text-lg"
+              className="w-full px-6 py-4 rounded-xl border mb-4 text-lg"
               required
             />
             <button
               type="submit"
-              className="w-full bg-gray-900 text-white px-6 py-4 rounded-xl hover:bg-gray-800 transition-all text-lg font-medium"
+              className="w-full bg-gray-900 text-white py-4 rounded-xl hover:bg-gray-800 text-lg font-medium"
             >
               {showError ? (
-                <span className="text-red-300">Service not available yet</span>
+                <span className="text-red-300">Service unavailable</span>
               ) : (
                 <>
-                  <span>Join Waitlist</span>
-                  <ArrowRight className="inline-block w-5 h-5 ml-2" />
+                  Join Waitlist <ArrowRight className="inline ml-2" />
                 </>
               )}
             </button>
-            
-            <div className="mt-4 text-gray-500 text-sm text-center">
-              <Shield className="inline-block w-4 h-4 mr-1" />
-              <span>We respect your privacy</span>
-            </div>
+            <p className="text-gray-500 mt-4 text-sm">
+              <Shield className="inline mr-1" /> We respect your privacy
+            </p>
           </form>
         </div>
-      </section>
+      </main>
 
       {/* Features Section */}
-      <section id="features" className="min-h-screen flex flex-col justify-center py-16 px-4 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">One platform for all AI models</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Access all models through a single interface</p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-5xl mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-16">One platform for all AI models</h2>
+          <div className="grid md:grid-cols-2 gap-8">
             {features.map((feature, index) => (
-              <div
-                key={index}
-                className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all"
-              >
-                <div className="w-14 h-14 bg-gray-900 text-white rounded-xl flex items-center justify-center mb-5">
+              <div key={index} className="bg-white p-6 rounded-xl border">
+                <div className="w-14 h-14 bg-gray-900 rounded-xl flex items-center justify-center mb-4">
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600 text-base">{feature.description}</p>
+                <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+                <p className="text-gray-600">{feature.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Pricing Section with Lorem Ipsum */}
-      <section id="pricing" className="min-h-screen flex flex-col justify-center py-16 px-4">
-        <div className="max-w-5xl mx-auto w-full">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Simple, transparent pricing</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Choose the plan that works best for you</p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-8 mx-auto px-4">
-            <div className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Free</h3>
+      {/* Pricing Section */}
+      <section className="py-20">
+        <div className="max-w-5xl mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-16">Simple Pricing</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-white p-8 rounded-xl border">
+              <h3 className="text-2xl font-bold mb-4">Free</h3>
               <div className="text-4xl font-bold mb-6">$0<span className="text-xl text-gray-500">/month</span></div>
               <ul className="space-y-4 mb-8">
                 {[1, 2, 3].map((i) => (
-                  <li key={i} className="flex items-center text-gray-700">
-                    <Check className="w-5 h-5 text-gray-900 mr-3" />
-                    <span>Lorem ipsum dolor sit amet</span>
+                  <li key={i} className="flex items-center">
+                    <Check className="w-5 h-5 mr-3 text-gray-900" />
+                    Lorem ipsum dolor
                   </li>
                 ))}
               </ul>
-              <button className="w-full bg-gray-900 text-white py-3 rounded-xl hover:bg-gray-800 transition-all">
+              <button className="w-full py-3 rounded-xl border-2 border-gray-900 hover:bg-gray-100">
                 Get Started
               </button>
             </div>
 
-            <div className="bg-gray-900 text-white p-8 rounded-xl shadow-md">
-              <h3 className="text-2xl font-bold mb-4">Premium</h3>
+            <div className="bg-gray-900 text-white p-8 rounded-xl">
+              <h3 className="text-2xl font-bold mb-4">Pro</h3>
               <div className="text-4xl font-bold mb-6">$20<span className="text-xl text-gray-400">/month</span></div>
               <ul className="space-y-4 mb-8">
                 {[1, 2, 3].map((i) => (
                   <li key={i} className="flex items-center">
-                    <Check className="w-5 h-5 text-white mr-3" />
-                    <span>Lorem ipsum dolor sit amet</span>
+                    <Check className="w-5 h-5 mr-3 text-white" />
+                    Lorem ipsum dolor
                   </li>
                 ))}
               </ul>
-              <button className="w-full bg-white text-gray-900 py-3 rounded-xl hover:bg-gray-100 transition-all">
+              <button className="w-full py-3 bg-white text-gray-900 rounded-xl hover:bg-gray-100">
                 Upgrade Now
               </button>
             </div>
@@ -226,8 +193,7 @@ function App() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-8 border-t border-gray-100">
+      <footer className="py-8 border-t">
         <div className="max-w-5xl mx-auto px-4 text-center text-gray-600">
           © 2024 Drawbridge
         </div>
