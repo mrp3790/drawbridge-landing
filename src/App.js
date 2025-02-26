@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MessageSquare, Zap, Key, Server, Check, ArrowRight, Shield } from 'lucide-react';
-// Import path for logo 
-import logo from './src/assets/logo.png';
+import logo from './logo.png';
 
 function App() {
   const [email, setEmail] = useState('');
