@@ -197,7 +197,7 @@ function App() {
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">Choose the plan that works best for you</p>
           </div>
           
-          <div className="flex flex-wrap justify-center gap-10 mx-auto">
+          <div className="flex flex-col md:flex-row justify-center gap-10 mx-auto">
             {/* Free Tier */}
             <div className="w-full max-w-lg bg-gray-50 p-12 rounded-xl border border-gray-200 shadow-sm">
               <div className="mb-8">
