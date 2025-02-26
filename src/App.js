@@ -66,28 +66,31 @@ function App() {
 
   return (
     <div className="bg-white font-sans">
-      {/* Header with forced left alignment */}
+      {/* Fixed Header with Grid Layout */}
       <header className="fixed top-0 w-full bg-white border-b border-gray-100 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center" style={{ marginLeft: '-1.5rem' }}>
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-[max-content_1fr_max-content] items-center h-16 gap-4">
+            {/* Logo Section - Left Edge */}
+            <div className="flex items-center gap-2">
               <img 
                 src={logo} 
                 alt="Drawbridge Logo" 
-                className="w-8 h-8 ml-6 mr-2" 
+                className="w-8 h-8"
               />
-              <span className="text-xl font-semibold text-gray-800">Drawbridge</span>
+              <span className="text-xl font-semibold text-gray-800 pl-0 ml-0">Drawbridge</span>
             </div>
             
-            <nav className="hidden md:flex items-center space-x-8">
+            {/* Navigation - Right Edge */}
+            <nav className="hidden md:flex items-center justify-end gap-8">
               <a href="#features" className="text-gray-600 hover:text-gray-800 transition-all">Features</a>
               <a href="#pricing" className="text-gray-600 hover:text-gray-800 transition-all">Pricing</a>
               <button className="bg-gray-900 text-white px-5 py-2 rounded-xl hover:bg-gray-800 transition-all">
                 Sign In
               </button>
             </nav>
-            
-            <button className="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100">
+
+            {/* Mobile Menu */}
+            <button className="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 justify-self-end">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
