@@ -13,11 +13,11 @@ function App() {
     { name: "Claude 3.7 Sonnet", color: "#ff6600" },
     { name: "Deepseek-R1", color: "#0066ff" },
     { name: "Grok-3", color: "#8e44ad" },
-    { name: "o3-mini", color: "#e91e63" },     
-    { name: "Qwen2.5-Max", color: "#00bcd4" },   
-    { name: "Gemini 2.0 Flash", color: "#4285f4" }, 
-    { name: "Llama-3.3", color: "#ffc107" },     
-    { name: "o1-preview", color: "#009688" },     
+    { name: "o3-mini", color: "#e91e63" },
+    { name: "Qwen2.5-Max", color: "#00bcd4" },
+    { name: "Gemini 2.0 Flash", color: "#4285f4" },
+    { name: "Llama-3.3", color: "#ffc107" },
+    { name: "o1-preview", color: "#607d8b" },   
   ];
 
   useEffect(() => {
