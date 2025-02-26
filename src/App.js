@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MessageSquare, Zap, Key, Server, Check, ArrowRight, Shield } from 'lucide-react';
-// Import your logo
-// import logo from './assets/logo.svg';
+// Import logo
+// When deploying, make sure this path is correct
+// and the logo.png file exists in the assets folder
+import logo from './assets/logo.png';
 
 const LandingPage = () => {
   const [email, setEmail] = useState('');
@@ -111,8 +113,7 @@ const LandingPage = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
-            <div className={`group relative transition-all duration-300 ${showSuccess ? 'scale-102' : ''}`}>
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-400 to-purple-500 rounded-xl opacity-0 group-hover:opacity-20 blur-sm transition-opacity duration-300"></div>
+            <div className="relative transition-all duration-300 ${showSuccess ? 'scale-102' : ''}">
               <input
                 type="email"
                 value={email}
