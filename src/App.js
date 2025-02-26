@@ -17,7 +17,7 @@ function App() {
     { name: "Gemini 2.0 Flash", color: "#4285f4" },
     { name: "Deepseek-R1", color: "#1e88e5" },
     { name: "Llama-3.3", color: "#fb8c00" },
-    { name: "o1", color: "#ff5722" }
+    { name: "o1-preview", color: "#ff5722" }
   ];
 
   // AI model rotation effect
@@ -193,9 +193,9 @@ function App() {
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">Choose the plan that works best for you</p>
           </div>
           
-          <div className="flex flex-col md:flex-row justify-center gap-10 mx-auto max-w-6xl">
+          <div className="flex flex-col md:flex-row justify-center gap-10 mx-auto max-w-7xl">
             {/* Free Tier */}
-            <div className="w-full md:w-1/2 bg-gray-50 p-12 rounded-xl border border-gray-200 shadow-sm">
+            <div className="w-full md:w-2/5 bg-gray-50 p-12 rounded-xl border border-gray-200 shadow-sm">
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-gray-900">Free</h3>
                 <p className="text-gray-600 mt-2">Basic features</p>
@@ -223,7 +223,7 @@ function App() {
             </div>
 
             {/* Premium Tier */}
-            <div className="w-full md:w-1/2 bg-gray-900 text-white p-12 rounded-xl shadow-md">
+            <div className="w-full md:w-2/5 bg-gray-900 text-white p-12 rounded-xl shadow-md">
               <div>
                 <div className="mb-8">
                   <h3 className="text-2xl font-bold">Premium</h3>
