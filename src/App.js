@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MessageSquare, Zap, Key, Server, Check, ArrowRight, Shield } from 'lucide-react';
-// Import path for logo - make sure logo.png exists in this location
-// import logo from './assets/logo.png';
+// Import path for logo 
+import logo from './assets/logo.png';
 
 function App() {
   const [email, setEmail] = useState('');
@@ -75,10 +75,7 @@ function App() {
             <div className="flex items-center gap-2">
               {/* Logo */}
               <div className="h-9 w-9 overflow-hidden">
-                {/* Temporary logo placeholder - replace with your logo */}
-                <div className="w-full h-full bg-gray-800 rounded-full flex items-center justify-center text-white text-sm font-bold">D</div>
-                {/* When your logo.png is in the assets folder, uncomment this: */}
-                {/* <img src={logo} alt="Drawbridge Logo" className="w-full h-full object-contain" /> */}
+                <img src={logo} alt="Drawbridge Logo" className="w-full h-full object-contain" />
               </div>
               <span className="text-xl font-semibold text-gray-800">Drawbridge</span>
             </div>
@@ -197,9 +194,9 @@ function App() {
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">Choose the plan that works best for you</p>
           </div>
           
-          <div className="flex flex-col md:flex-row justify-center gap-10 mx-auto">
+          <div className="flex flex-col md:flex-row justify-center gap-10 mx-auto max-w-6xl">
             {/* Free Tier */}
-            <div className="w-full max-w-lg bg-gray-50 p-12 rounded-xl border border-gray-200 shadow-sm">
+            <div className="w-full md:w-1/2 bg-gray-50 p-12 rounded-xl border border-gray-200 shadow-sm">
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-gray-900">Free</h3>
                 <p className="text-gray-600 mt-2">Basic features</p>
@@ -227,7 +224,7 @@ function App() {
             </div>
 
             {/* Premium Tier */}
-            <div className="w-full max-w-lg bg-gray-900 text-white p-12 rounded-xl shadow-md">
+            <div className="w-full md:w-1/2 bg-gray-900 text-white p-12 rounded-xl shadow-md">
               <div>
                 <div className="mb-8">
                   <h3 className="text-2xl font-bold">Premium</h3>
