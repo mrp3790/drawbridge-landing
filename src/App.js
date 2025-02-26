@@ -9,7 +9,7 @@ function App() {
   const [showError, setShowError] = useState(false);
 
   const aiModels = [
-    { name: "GPT-4o", color: "#10a37f" },
+    { name: "GPT-4o", color: "#ff5722" },
     { name: "Claude 3.7 Sonnet", color: "#8e44ad" },
     { name: "Deepseek-R1", color: "#1e88e5" },
     { name: "Grok-3", color: "#e91e63" },
@@ -17,7 +17,7 @@ function App() {
     { name: "Qwen2.5-Max", color: "#00bcd4" },
     { name: "Gemini 2.0 Flash", color: "#4285f4" },
     { name: "Llama-3.3", color: "#fb8c00" },
-    { name: "o1-preview", color: "#ff5722" }
+    { name: "o1-preview", color: "#10a37f" }
   ];
 
   // AI model rotation effect
@@ -193,9 +193,9 @@ function App() {
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">Choose the plan that works best for you</p>
           </div>
           
-          <div className="flex flex-col md:flex-row justify-center items-stretch gap-10 mx-auto max-w-7xl">
+          <div className="flex flex-col md:flex-row justify-center items-stretch gap-10 mx-auto max-w-6xl">
             {/* Free Tier */}
-            <div className="w-full md:w-1/2 lg:w-2/5 bg-gray-50 p-12 rounded-xl border border-gray-200 shadow-sm flex flex-col">
+            <div className="w-full md:w-1/2 bg-gray-50 p-12 rounded-xl border border-gray-200 shadow-sm flex flex-col">
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-gray-900">Free</h3>
                 <p className="text-gray-600 mt-2">Basic features</p>
@@ -223,7 +223,7 @@ function App() {
             </div>
 
             {/* Premium Tier */}
-            <div className="w-full md:w-1/2 lg:w-2/5 bg-gray-900 text-white p-12 rounded-xl shadow-md flex flex-col">
+            <div className="w-full md:w-1/2 bg-gray-900 text-white p-12 rounded-xl shadow-md flex flex-col">
               <div>
                 <div className="mb-8">
                   <h3 className="text-2xl font-bold">Premium</h3>
