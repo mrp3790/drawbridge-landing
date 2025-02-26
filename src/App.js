@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MessageSquare, Zap, Key, Server, Check, ArrowRight, Shield, Image, Mic } from 'lucide-react';
+import { MessageSquare, Zap, Key, Server, Check, ArrowRight, Shield } from 'lucide-react';
 import logo from './logo.png';
 
 function App() {
@@ -9,44 +9,78 @@ function App() {
   const [showError, setShowError] = useState(false);
 
   const aiModels = [
+    // LLMs
     { name: "GPT-4o", color: "#10a37f", type: "llm" },
     { name: "Claude 3.7 Sonnet", color: "#ff6600", type: "llm" },
     { name: "Deepseek-R1", color: "#0066ff", type: "llm" },
+    { name: "Grok-3", color: "#8e44ad", type: "llm" },
+    
+    // Image generation
     { name: "DALL-E 3.5", color: "#e91e63", type: "image" },
     { name: "Midjourney V6", color: "#8e44ad", type: "image" },
     { name: "Stable Diffusion XL 2.0", color: "#00bcd4", type: "image" },
-    { name: "ElevenLabs Helio", color: "#ffc107", type: "voice" },
-    { name: "OpenAI TTS-2", color: "#4285f4", type: "voice" },
-    { name: "PlayHT 2.0", color: "#607d8b", type: "voice" },
-    { name: "Grok-3", color: "#8e44ad", type: "llm" },
-    { name: "Gemini 2.0 Flash", color: "#4285f4", type: "llm" },
-    { name: "Llama-3.3", color: "#ffc107", type: "llm" },
+    
+    // Text-to-Speech
+    { name: "ElevenLabs Helio", color: "#ffc107", type: "speech" },
+    { name: "OpenAI TTS-2", color: "#4285f4", type: "speech" },
+    { name: "PlayHT 2.0", color: "#607d8b", type: "speech" },
   ];
 
   const getModelAction = (type) => {
     switch (type) {
       case "llm":
-        return "Chat with";
+        return "Generate text with";
       case "image":
         return "Create images with";
-      case "voice":
-        return "Generate audio with";
+      case "speech":
+        return "Produce audio with";
       default:
         return "Access to";
     }
   };
 
+  // Setup for randomized display order without repeats
+  const [displayOrder, setDisplayOrder] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Initialize a random order on first render
+  useEffect(() => {
+    // Create array with indices of all models
+    const indices = Array.from({ length: aiModels.length }, (_, i) => i);
+    
+    // Shuffle the array
+    const shuffled = [...indices].sort(() => 0.5 - Math.random());
+    
+    setDisplayOrder(shuffled);
+    setCurrentModel(shuffled[0]);
+  }, []);
+
+  // Handle transitions
   useEffect(() => {
     const intervalId = setInterval(() => {
       setTransitioning(true);
+      
       setTimeout(() => {
-        setCurrentModel((prev) => (prev + 1) % aiModels.length);
+        // Move to next index, or start over if we've gone through all models
+        const nextIndex = (currentIndex + 1) % aiModels.length;
+        setCurrentIndex(nextIndex);
+        
+        // If we've gone through all models, reshuffle
+        if (nextIndex === 0) {
+          const indices = Array.from({ length: aiModels.length }, (_, i) => i);
+          const newOrder = [...indices].sort(() => 0.5 - Math.random());
+          setDisplayOrder(newOrder);
+          setCurrentModel(newOrder[0]);
+        } else {
+          setCurrentModel(displayOrder[nextIndex]);
+        }
+        
         setTransitioning(false);
       }, 600);
     }, 3000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [currentIndex, displayOrder]);
 
   const features = [
     {
@@ -71,18 +105,7 @@ function App() {
     }
   ];
 
-  const getModelIcon = (type) => {
-    switch (type) {
-      case "llm":
-        return <MessageSquare className="w-6 h-6 inline-block mr-2 mb-1" />;
-      case "image":
-        return <Image className="w-6 h-6 inline-block mr-2 mb-1" />;
-      case "voice":
-        return <Mic className="w-6 h-6 inline-block mr-2 mb-1" />;
-      default:
-        return null;
-    }
-  };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -146,7 +169,6 @@ function App() {
                       display: 'inline'
                     }}
                   >
-                    {getModelIcon(aiModels[currentModel].type)}
                     {aiModels[currentModel].name}
                   </span>
                 </span>
