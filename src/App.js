@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MessageSquare, Zap, Key, Server, Check, ArrowRight, Shield } from 'lucide-react';
+import { MessageSquare, Zap, Key, Server, Check, ArrowRight, Shield, Image, Mic } from 'lucide-react';
 import logo from './logo.png';
 
 function App() {
@@ -9,16 +9,32 @@ function App() {
   const [showError, setShowError] = useState(false);
 
   const aiModels = [
-    { name: "GPT-4o", color: "#10a37f" },
-    { name: "Claude 3.7 Sonnet", color: "#ff6600" },
-    { name: "Deepseek-R1", color: "#0066ff" },
-    { name: "Grok-3", color: "#8e44ad" },
-    { name: "o3-mini", color: "#e91e63" },
-    { name: "Qwen2.5-Max", color: "#00bcd4" },
-    { name: "Gemini 2.0 Flash", color: "#4285f4" },
-    { name: "Llama-3.3", color: "#ffc107" },
-    { name: "o1-preview", color: "#607d8b" },   
+    { name: "GPT-4o", color: "#10a37f", type: "llm" },
+    { name: "Claude 3.7 Sonnet", color: "#ff6600", type: "llm" },
+    { name: "Deepseek-R1", color: "#0066ff", type: "llm" },
+    { name: "DALL-E 3.5", color: "#e91e63", type: "image" },
+    { name: "Midjourney V6", color: "#8e44ad", type: "image" },
+    { name: "Stable Diffusion XL 2.0", color: "#00bcd4", type: "image" },
+    { name: "ElevenLabs Helio", color: "#ffc107", type: "voice" },
+    { name: "OpenAI TTS-2", color: "#4285f4", type: "voice" },
+    { name: "PlayHT 2.0", color: "#607d8b", type: "voice" },
+    { name: "Grok-3", color: "#8e44ad", type: "llm" },
+    { name: "Gemini 2.0 Flash", color: "#4285f4", type: "llm" },
+    { name: "Llama-3.3", color: "#ffc107", type: "llm" },
   ];
+
+  const getModelAction = (type) => {
+    switch (type) {
+      case "llm":
+        return "Chat with";
+      case "image":
+        return "Create images with";
+      case "voice":
+        return "Generate audio with";
+      default:
+        return "Access to";
+    }
+  };
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -36,7 +52,7 @@ function App() {
     {
       icon: <MessageSquare className="w-7 h-7" />,
       title: "All in One",
-      description: "Access to over x leading AI models"
+      description: "Access to leading LLMs, image and voice models"
     },
     {
       icon: <Zap className="w-7 h-7" />,
@@ -54,6 +70,19 @@ function App() {
       description: "Enhanced privacy for sensitive conversations"
     }
   ];
+
+  const getModelIcon = (type) => {
+    switch (type) {
+      case "llm":
+        return <MessageSquare className="w-6 h-6 inline-block mr-2 mb-1" />;
+      case "image":
+        return <Image className="w-6 h-6 inline-block mr-2 mb-1" />;
+      case "voice":
+        return <Mic className="w-6 h-6 inline-block mr-2 mb-1" />;
+      default:
+        return null;
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -110,13 +139,14 @@ function App() {
                     transitioning ? 'opacity-0 transform -translate-y-2' : 'opacity-100 transform translate-y-0'
                   }`}
                 >
-                  Access to{" "}
+                  {getModelAction(aiModels[currentModel].type)}{" "}
                   <span 
                     style={{
                       color: aiModels[currentModel].color,
                       display: 'inline'
                     }}
                   >
+                    {getModelIcon(aiModels[currentModel].type)}
                     {aiModels[currentModel].name}
                   </span>
                 </span>
