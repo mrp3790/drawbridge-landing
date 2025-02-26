@@ -34,24 +34,53 @@ function App() {
     return () => clearInterval(intervalId);
   }, []);
 
+  // Add smooth scrolling
+  useEffect(() => {
+    // Add smooth scroll behavior to html
+    document.documentElement.style.scrollBehavior = 'smooth';
+    
+    // Optional: Add active section detection
+    const handleScroll = () => {
+      const sections = document.querySelectorAll('section');
+      const scrollPosition = window.scrollY + window.innerHeight / 3;
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionBottom = sectionTop + section.offsetHeight;
+        
+        if (scrollPosition >= sectionTop && scrollPosition <= sectionBottom) {
+          section.classList.add('active-section');
+        } else {
+          section.classList.remove('active-section');
+        }
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.documentElement.style.scrollBehavior = 'auto';
+    };
+  }, []);
+
   const features = [
     {
-      icon: <MessageSquare className="w-6 h-6" />,
+      icon: <MessageSquare className="w-7 h-7" />,
       title: "All in One",
       description: "Access to over 30 leading AI models"
     },
     {
-      icon: <Zap className="w-6 h-6" />,
+      icon: <Zap className="w-7 h-7" />,
       title: "Up to Date",
       description: "Latest models added as they release"
     },
     {
-      icon: <Key className="w-6 h-6" />,
+      icon: <Key className="w-7 h-7" />,
       title: "API Integration",
       description: "Connect your existing provider keys"
     },
     {
-      icon: <Server className="w-6 h-6" />,
+      icon: <Server className="w-7 h-7" />,
       title: "Private Data",
       description: "Enhanced privacy for sensitive conversations"
     }
@@ -103,7 +132,7 @@ function App() {
       </header>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col justify-center pt-16 pb-16 px-4">
+      <section className="min-h-screen flex flex-col justify-center pt-16 pb-16 px-4 transition-opacity duration-500 ease-in-out">
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-16">
             {/* Fixed height container to prevent layout shifts */}
@@ -163,26 +192,26 @@ function App() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="min-h-screen flex flex-col justify-center py-16 px-4 bg-gray-50">
+      <section id="features" className="min-h-screen flex flex-col justify-center py-16 px-4 bg-gray-50 transition-opacity duration-500 ease-in-out">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">One platform for all AI models</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">Access all models through a single interface</p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all"
+                className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 duration-300"
               >
-                <div className="w-12 h-12 bg-gray-900 text-white rounded-xl flex items-center justify-center mb-5">
+                <div className="w-14 h-14 bg-gray-900 text-white rounded-xl flex items-center justify-center mb-5">
                   {feature.icon}
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 text-sm">{feature.description}</p>
+                <p className="text-gray-600 text-base">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -190,70 +219,70 @@ function App() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="min-h-screen flex flex-col justify-center py-16 px-4">
+      <section id="pricing" className="min-h-screen flex flex-col justify-center py-16 px-4 transition-opacity duration-500 ease-in-out">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Simple, transparent pricing</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">Choose the plan that works best for you</p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {/* Free Tier */}
-            <div className="bg-gray-50 p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all">
-              <div className="mb-6">
+            <div className="bg-gray-50 p-10 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 duration-300">
+              <div className="mb-8">
                 <h3 className="text-2xl font-bold text-gray-900">Free</h3>
                 <p className="text-gray-600 mt-2">Basic features</p>
                 <div className="mt-4 text-4xl font-bold">$0<span className="text-xl text-gray-500 font-normal">/month</span></div>
               </div>
               
-              <ul className="space-y-3 mb-8">
+              <ul className="space-y-4 mb-8">
                 <li className="flex items-center text-gray-700">
                   <Check className="w-5 h-5 text-gray-900 mr-3 flex-shrink-0" />
-                  <span>Sample text</span>
+                  <span className="text-base">Sample text</span>
                 </li>
                 <li className="flex items-center text-gray-700">
                   <Check className="w-5 h-5 text-gray-900 mr-3 flex-shrink-0" />
-                  <span>Sample text</span>
+                  <span className="text-base">Sample text</span>
                 </li>
                 <li className="flex items-center text-gray-700">
                   <Check className="w-5 h-5 text-gray-900 mr-3 flex-shrink-0" />
-                  <span>Sample text</span>
+                  <span className="text-base">Sample text</span>
                 </li>
               </ul>
               
-              <button className="w-full border-2 border-gray-900 text-gray-900 px-6 py-3 rounded-xl hover:bg-gray-100 transition-all font-medium">
+              <button className="w-full border-2 border-gray-900 text-gray-900 px-6 py-3 rounded-xl hover:bg-gray-200 transition-all font-medium">
                 Sign Up
               </button>
             </div>
 
             {/* Premium Tier */}
-            <div className="bg-gray-900 text-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all">
+            <div className="bg-gray-900 text-white p-10 rounded-xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 duration-300">
               <div>
-                <div className="mb-6">
+                <div className="mb-8">
                   <h3 className="text-2xl font-bold">Premium</h3>
                   <p className="text-gray-300 mt-2">Enhanced capabilities</p>
                   <div className="mt-4 text-4xl font-bold">$20<span className="text-xl text-gray-400 font-normal">/month</span></div>
                   <p className="text-blue-300 text-sm mt-1">Limited time offer</p>
                 </div>
                 
-                <ul className="space-y-3 mb-8">
+                <ul className="space-y-4 mb-8">
                   <li className="flex items-center">
                     <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-3 flex-shrink-0">
                       <Check className="w-3 h-3 text-white" />
                     </div>
-                    <span>Sample text</span>
+                    <span className="text-base">Sample text</span>
                   </li>
                   <li className="flex items-center">
                     <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-3 flex-shrink-0">
                       <Check className="w-3 h-3 text-white" />
                     </div>
-                    <span>Sample text</span>
+                    <span className="text-base">Sample text</span>
                   </li>
                   <li className="flex items-center">
                     <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-3 flex-shrink-0">
                       <Check className="w-3 h-3 text-white" />
                     </div>
-                    <span>Sample text</span>
+                    <span className="text-base">Sample text</span>
                   </li>
                 </ul>
                 
@@ -272,6 +301,18 @@ function App() {
           © 2024 Drawbridge
         </div>
       </footer>
+      
+      {/* Add custom styles */}
+      <style jsx="true">{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .active-section {
+          animation: fadeIn 0.5s ease-out;
+        }
+      `}</style>
     </div>
   );
 }
