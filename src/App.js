@@ -66,13 +66,13 @@ function App() {
 
   return (
     <div className="bg-white font-sans">
-      {/* Header with fixed logo alignment */}
+      {/* Header with perfect left alignment */}
       <header className="fixed top-0 w-full bg-white border-b border-gray-100 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              {/* Logo aligned to left edge */}
-              <div className="flex-shrink-0 h-9 w-9 -ml-3">
+              {/* Logo - Flush left alignment */}
+              <div className="flex-shrink-0 h-9 w-9 -ml-[18px] mr-2">
                 <img src={logo} alt="Drawbridge Logo" className="w-full h-full object-contain" />
               </div>
               <span className="text-xl font-semibold text-gray-800 ml-2">Drawbridge</span>
@@ -190,6 +190,7 @@ function App() {
           </div>
           
           <div className="flex flex-col md:flex-row justify-center items-stretch gap-8 mx-auto w-full max-w-6xl px-4">
+            {/* Free Tier */}
             <div className="flex-1 bg-gray-50 p-8 md:p-10 rounded-xl border border-gray-200 shadow-sm flex flex-col">
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-gray-900">Free</h3>
@@ -200,9 +201,16 @@ function App() {
               <ul className="space-y-4 mb-8 flex-grow">
                 <li className="flex items-center text-gray-700">
                   <Check className="w-5 h-5 text-gray-900 mr-3 flex-shrink-0" />
-                  <span className="text-base">Sample text</span>
+                  <span className="text-base">5 messages/day limit</span>
                 </li>
-                {/* Repeat similar list items */}
+                <li className="flex items-center text-gray-700">
+                  <Check className="w-5 h-5 text-gray-900 mr-3 flex-shrink-0" />
+                  <span className="text-base">3 model choices</span>
+                </li>
+                <li className="flex items-center text-gray-700">
+                  <Check className="w-5 h-5 text-gray-900 mr-3 flex-shrink-0" />
+                  <span className="text-base">Basic support</span>
+                </li>
               </ul>
               
               <button className="w-full border-2 border-gray-900 text-gray-900 px-6 py-3 rounded-xl hover:bg-gray-200 transition-all font-medium">
@@ -210,6 +218,7 @@ function App() {
               </button>
             </div>
 
+            {/* Premium Tier */}
             <div className="flex-1 bg-gray-900 text-white p-8 md:p-10 rounded-xl shadow-md flex flex-col">
               <div className="mb-8">
                 <h3 className="text-2xl font-bold">Premium</h3>
@@ -223,9 +232,20 @@ function App() {
                   <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-3 flex-shrink-0">
                     <Check className="w-3 h-3 text-white" />
                   </div>
-                  <span className="text-base">Sample text</span>
+                  <span className="text-base">Unlimited messages</span>
                 </li>
-                {/* Repeat similar list items */}
+                <li className="flex items-center">
+                  <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-3 flex-shrink-0">
+                    <Check className="w-3 h-3 text-white" />
+                  </div>
+                  <span className="text-base">All AI models access</span>
+                </li>
+                <li className="flex items-center">
+                  <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-3 flex-shrink-0">
+                    <Check className="w-3 h-3 text-white" />
+                  </div>
+                  <span className="text-base">Priority support</span>
+                </li>
               </ul>
               
               <button className="w-full bg-white text-gray-900 px-6 py-3 rounded-xl hover:bg-gray-100 transition-all font-medium">
