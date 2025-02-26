@@ -80,14 +80,14 @@ const LandingPage = () => {
     <div className="min-h-screen bg-white font-sans">
       {/* Header with blur effect */}
       <header className="fixed top-0 w-full bg-white border-b border-gray-100 z-50 transition-all duration-300">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-2 group">
               {/* Logo */}
               <div className="h-9 w-9 overflow-hidden group-hover:scale-105 transition-transform duration-300">
                 <img 
-                  src="/logo.png" 
-                  alt="Drawbridge logo" 
+                  src="/api/placeholder/36/36" 
+                  alt="Drawbridge Logo" 
                   className="w-full h-full object-contain"
                 />
               </div>
@@ -98,8 +98,8 @@ const LandingPage = () => {
             <nav className="hidden md:flex items-center space-x-8">
               <a href="#demo" className="text-gray-600 hover:text-gray-800 transition-all">Demo</a>
               <a href="#pricing" className="text-gray-600 hover:text-gray-800 transition-all">Pricing</a>
-              <button className="bg-gray-900 text-white px-4 py-2 rounded-xl hover:bg-gray-800 transition-all hover:scale-105 hover:shadow-md">
-                Try It
+              <button className="bg-gray-900 text-white px-5 py-2 rounded-xl hover:bg-gray-800 transition-all hover:scale-105 hover:shadow-md">
+                Sign In
               </button>
             </nav>
             
@@ -114,16 +114,16 @@ const LandingPage = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 relative overflow-hidden">
+      <section className="pt-40 pb-24 px-4 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-gray-50/30 to-transparent pointer-events-none"></div>
         
         {/* Subtle background elements */}
-        <div className="absolute top-20 left-10 w-64 h-64 bg-blue-100/20 rounded-full filter blur-3xl"></div>
-        <div className="absolute bottom-10 right-10 w-80 h-80 bg-purple-100/20 rounded-full filter blur-3xl"></div>
+        <div className="absolute top-20 left-10 w-96 h-96 bg-blue-100/20 rounded-full filter blur-3xl"></div>
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-purple-100/20 rounded-full filter blur-3xl"></div>
         
-        <div className="max-w-3xl mx-auto text-center relative">
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold text-center">
+        <div className="max-w-4xl mx-auto text-center relative">
+          <div className="mb-12">
+            <h1 className="text-5xl md:text-6xl font-bold text-center leading-tight">
               <span 
                 className={`inline-block transition-all duration-500 ease-in-out ${
                   transitioning ? 'opacity-0 transform -translate-y-2' : 'opacity-100 transform translate-y-0'
@@ -140,7 +140,7 @@ const LandingPage = () => {
                 </span>
               </span>
             </h1>
-            <p className="text-xl text-gray-600 mt-6">
+            <p className="text-xl md:text-2xl text-gray-600 mt-8 max-w-3xl mx-auto">
               All the latest AI models in one place
             </p>
           </div>
@@ -195,13 +195,13 @@ const LandingPage = () => {
                 key={index}
                 className="group bg-white p-8 rounded-2xl border border-gray-100 hover:border-gray-200 transition-all hover:shadow-md hover:-translate-y-1 duration-300"
               >
-                <div className="w-14 h-14 bg-gray-900 text-white rounded-xl flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-300">
+                <div className="w-16 h-16 bg-gray-900 text-white rounded-xl flex items-center justify-center mb-7 group-hover:scale-105 transition-transform duration-300">
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <p className="text-lg text-gray-600">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -218,25 +218,25 @@ const LandingPage = () => {
           
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Free Tier */}
-            <div className="group bg-white p-8 rounded-2xl border border-gray-200 hover:border-gray-300 transition-all hover:shadow-md hover:-translate-y-1 duration-300 relative overflow-hidden">
-              <div className="mb-8">
+            <div className="group bg-white p-10 rounded-2xl border border-gray-200 hover:border-gray-300 transition-all hover:shadow-lg hover:-translate-y-1 duration-300 relative overflow-hidden">
+              <div className="mb-10">
                 <h3 className="text-2xl font-bold text-gray-900">Free</h3>
                 <p className="text-gray-600 mt-2">Basic features</p>
-                <div className="mt-4 text-4xl font-bold">$0<span className="text-xl text-gray-500 font-normal">/month</span></div>
+                <div className="mt-6 text-5xl font-bold">$0<span className="text-xl text-gray-500 font-normal">/month</span></div>
               </div>
               
-              <ul className="space-y-4 mb-8">
+              <ul className="space-y-5 mb-10">
                 <li className="flex items-center text-gray-700">
-                  <Check className="w-5 h-5 text-gray-900 mr-3 flex-shrink-0" />
-                  <span>Sample text</span>
+                  <Check className="w-6 h-6 text-gray-900 mr-3 flex-shrink-0" />
+                  <span className="text-lg">Sample text</span>
                 </li>
                 <li className="flex items-center text-gray-700">
-                  <Check className="w-5 h-5 text-gray-900 mr-3 flex-shrink-0" />
-                  <span>Sample text</span>
+                  <Check className="w-6 h-6 text-gray-900 mr-3 flex-shrink-0" />
+                  <span className="text-lg">Sample text</span>
                 </li>
                 <li className="flex items-center text-gray-700">
-                  <Check className="w-5 h-5 text-gray-900 mr-3 flex-shrink-0" />
-                  <span>Sample text</span>
+                  <Check className="w-6 h-6 text-gray-900 mr-3 flex-shrink-0" />
+                  <span className="text-lg">Sample text</span>
                 </li>
               </ul>
               
@@ -246,7 +246,7 @@ const LandingPage = () => {
             </div>
 
             {/* Premium Tier */}
-            <div className="group bg-gray-900 text-white p-8 rounded-2xl hover:shadow-lg transition-all hover:-translate-y-1 duration-300 relative overflow-hidden">
+            <div className="group bg-gray-900 text-white p-10 rounded-2xl hover:shadow-xl transition-all hover:-translate-y-1 duration-300 relative overflow-hidden">
               <div className="absolute top-0 right-0">
                 <div className="bg-blue-500 text-white text-xs font-bold px-4 py-1 rounded-bl-xl rounded-tr-xl">
                   EARLY BIRD
@@ -254,31 +254,31 @@ const LandingPage = () => {
               </div>
               
               <div className="relative">
-                <div className="mb-8">
+                <div className="mb-10">
                   <h3 className="text-2xl font-bold">Premium</h3>
                   <p className="text-gray-300 mt-2">Enhanced capabilities</p>
-                  <div className="mt-4 text-4xl font-bold">$20<span className="text-xl text-gray-400 font-normal">/month</span></div>
+                  <div className="mt-6 text-5xl font-bold">$20<span className="text-xl text-gray-400 font-normal">/month</span></div>
                   <p className="text-blue-300 text-sm mt-1">Limited time offer</p>
                 </div>
                 
-                <ul className="space-y-4 mb-8">
+                <ul className="space-y-5 mb-10">
                   <li className="flex items-center">
-                    <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-3 flex-shrink-0">
-                      <Check className="w-3 h-3 text-white" />
+                    <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center mr-3 flex-shrink-0">
+                      <Check className="w-4 h-4 text-white" />
                     </div>
-                    <span>Sample text</span>
+                    <span className="text-lg">Sample text</span>
                   </li>
                   <li className="flex items-center">
-                    <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-3 flex-shrink-0">
-                      <Check className="w-3 h-3 text-white" />
+                    <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center mr-3 flex-shrink-0">
+                      <Check className="w-4 h-4 text-white" />
                     </div>
-                    <span>Sample text</span>
+                    <span className="text-lg">Sample text</span>
                   </li>
                   <li className="flex items-center">
-                    <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-3 flex-shrink-0">
-                      <Check className="w-3 h-3 text-white" />
+                    <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center mr-3 flex-shrink-0">
+                      <Check className="w-4 h-4 text-white" />
                     </div>
-                    <span>Sample text</span>
+                    <span className="text-lg">Sample text</span>
                   </li>
                 </ul>
                 
@@ -292,13 +292,13 @@ const LandingPage = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-2xl overflow-hidden shadow-lg">
-            <div className="p-8 md:p-10">
+      <section className="py-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-2xl overflow-hidden shadow-xl">
+            <div className="p-10 md:p-14">
               <div className="text-center">
-                <h2 className="text-2xl font-bold text-white mb-6">Early Access</h2>
-                <button className="bg-white text-gray-900 px-10 py-3 rounded-xl hover:bg-gray-50 transition-all hover:shadow-md hover:scale-[1.01] active:scale-[0.99] font-medium">
+                <h2 className="text-3xl font-bold text-white mb-8">Early Access</h2>
+                <button className="bg-white text-gray-900 px-12 py-4 rounded-xl hover:bg-gray-50 transition-all hover:shadow-md hover:scale-[1.01] active:scale-[0.99] font-medium text-lg">
                   Join Waitlist
                 </button>
               </div>
@@ -308,8 +308,8 @@ const LandingPage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 border-t border-gray-100">
-        <div className="max-w-5xl mx-auto px-4 text-center text-gray-600">
+      <footer className="py-10 border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 text-center text-gray-600">
           © 2024 Drawbridge
         </div>
       </footer>
