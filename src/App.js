@@ -9,13 +9,13 @@ function App() {
   const [showError, setShowError] = useState(false);
 
   const aiModels = [
-    { name: "o3-mini", color: "#9c27b0" },
-    { name: "Grok-3", color: "#e91e63" },
-    { name: "Qwen2.5-Max", color: "#00bcd4" },
     { name: "GPT-4o", color: "#10a37f" },
     { name: "Claude 3.7 Sonnet", color: "#8e44ad" },
-    { name: "Gemini 2.0 Flash", color: "#4285f4" },
     { name: "Deepseek-R1", color: "#1e88e5" },
+    { name: "Grok-3", color: "#e91e63" },
+    { name: "o3-mini", color: "#9c27b0" },
+    { name: "Qwen2.5-Max", color: "#00bcd4" },
+    { name: "Gemini 2.0 Flash", color: "#4285f4" },
     { name: "Llama-3.3", color: "#fb8c00" },
     { name: "o1-preview", color: "#ff5722" }
   ];
@@ -73,7 +73,7 @@ function App() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-2">
               {/* Logo */}
-              <div className="h-9 w-9 overflow-hidden">
+              <div className="h-9 w-9 mr-2">
                 <img src={logo} alt="Drawbridge Logo" className="w-full h-full object-contain" />
               </div>
               <span className="text-xl font-semibold text-gray-800">Drawbridge</span>
@@ -193,16 +193,16 @@ function App() {
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">Choose the plan that works best for you</p>
           </div>
           
-          <div className="flex flex-col md:flex-row justify-center gap-10 mx-auto max-w-7xl">
+          <div className="flex flex-col md:flex-row justify-center items-stretch gap-10 mx-auto max-w-7xl">
             {/* Free Tier */}
-            <div className="w-full md:w-2/5 bg-gray-50 p-12 rounded-xl border border-gray-200 shadow-sm">
+            <div className="w-full md:w-1/2 lg:w-2/5 bg-gray-50 p-12 rounded-xl border border-gray-200 shadow-sm flex flex-col">
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-gray-900">Free</h3>
                 <p className="text-gray-600 mt-2">Basic features</p>
                 <div className="mt-4 text-4xl font-bold">$0<span className="text-xl text-gray-500 font-normal">/month</span></div>
               </div>
               
-              <ul className="space-y-4 mb-8">
+              <ul className="space-y-4 mb-8 flex-grow">
                 <li className="flex items-center text-gray-700">
                   <Check className="w-5 h-5 text-gray-900 mr-3 flex-shrink-0" />
                   <span className="text-base">Sample text</span>
@@ -223,7 +223,7 @@ function App() {
             </div>
 
             {/* Premium Tier */}
-            <div className="w-full md:w-2/5 bg-gray-900 text-white p-12 rounded-xl shadow-md">
+            <div className="w-full md:w-1/2 lg:w-2/5 bg-gray-900 text-white p-12 rounded-xl shadow-md flex flex-col">
               <div>
                 <div className="mb-8">
                   <h3 className="text-2xl font-bold">Premium</h3>
@@ -232,7 +232,7 @@ function App() {
                   <p className="text-blue-300 text-sm mt-1">Limited time offer</p>
                 </div>
                 
-                <ul className="space-y-4 mb-8">
+                <ul className="space-y-4 mb-8 flex-grow">
                   <li className="flex items-center">
                     <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-3 flex-shrink-0">
                       <Check className="w-3 h-3 text-white" />
