@@ -65,12 +65,14 @@ function App() {
 
   return (
     <div className="bg-white font-sans">
-      {/* Header without logo */}
+      {/* Header with absolutely flush left text */}
       <header className="fixed top-0 w-full bg-white border-b border-gray-100 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <span className="text-xl font-semibold text-gray-800">Drawbridge</span>
+            <div className="flex items-center -ml-4">
+              <span className="text-xl font-semibold text-gray-800 pl-4">
+                Drawbridge
+              </span>
             </div>
             
             <nav className="hidden md:flex items-center space-x-8">
@@ -176,7 +178,7 @@ function App() {
         </div>
       </section>
 
-      {/* Pricing Section with Lorem Ipsum */}
+      {/* Pricing Section */}
       <section id="pricing" className="min-h-screen flex flex-col justify-center py-16 px-4">
         <div className="max-w-7xl mx-auto w-full">
           <div className="text-center mb-16">
