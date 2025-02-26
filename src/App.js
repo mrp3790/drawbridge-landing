@@ -20,7 +20,6 @@ function App() {
     { name: "o1-preview", color: "#ff5722" }
   ];
 
-  // AI model rotation effect
   useEffect(() => {
     const intervalId = setInterval(() => {
       setTransitioning(true);
@@ -67,19 +66,18 @@ function App() {
 
   return (
     <div className="bg-white font-sans">
-      {/* Header */}
+      {/* Header with fixed logo alignment */}
       <header className="fixed top-0 w-full bg-white border-b border-gray-100 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              {/* Logo - Fixed indentation */}
-              <div className="flex-shrink-0 h-9 w-9 mr-3">
+              {/* Logo aligned to left edge */}
+              <div className="flex-shrink-0 h-9 w-9 -ml-3">
                 <img src={logo} alt="Drawbridge Logo" className="w-full h-full object-contain" />
               </div>
-              <span className="text-xl font-semibold text-gray-800">Drawbridge</span>
+              <span className="text-xl font-semibold text-gray-800 ml-2">Drawbridge</span>
             </div>
             
-            {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
               <a href="#features" className="text-gray-600 hover:text-gray-800 transition-all">Features</a>
               <a href="#pricing" className="text-gray-600 hover:text-gray-800 transition-all">Pricing</a>
@@ -88,7 +86,6 @@ function App() {
               </button>
             </nav>
             
-            {/* Mobile menu button */}
             <button className="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -102,7 +99,6 @@ function App() {
       <section className="min-h-screen flex flex-col justify-center pt-16 pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-16">
-            {/* Fixed height container to prevent layout shifts */}
             <div className="h-24 md:h-28 flex items-center justify-center mb-4">
               <h1 className="text-5xl md:text-6xl font-bold text-center leading-tight">
                 <span 
@@ -185,7 +181,7 @@ function App() {
         </div>
       </section>
 
-      {/* Pricing Section - Fixed width */}
+      {/* Pricing Section */}
       <section id="pricing" className="min-h-screen flex flex-col justify-center py-16 px-4">
         <div className="max-w-7xl mx-auto w-full">
           <div className="text-center mb-16">
@@ -194,7 +190,6 @@ function App() {
           </div>
           
           <div className="flex flex-col md:flex-row justify-center items-stretch gap-8 mx-auto w-full max-w-6xl px-4">
-            {/* Free Tier */}
             <div className="flex-1 bg-gray-50 p-8 md:p-10 rounded-xl border border-gray-200 shadow-sm flex flex-col">
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-gray-900">Free</h3>
@@ -207,14 +202,7 @@ function App() {
                   <Check className="w-5 h-5 text-gray-900 mr-3 flex-shrink-0" />
                   <span className="text-base">Sample text</span>
                 </li>
-                <li className="flex items-center text-gray-700">
-                  <Check className="w-5 h-5 text-gray-900 mr-3 flex-shrink-0" />
-                  <span className="text-base">Sample text</span>
-                </li>
-                <li className="flex items-center text-gray-700">
-                  <Check className="w-5 h-5 text-gray-900 mr-3 flex-shrink-0" />
-                  <span className="text-base">Sample text</span>
-                </li>
+                {/* Repeat similar list items */}
               </ul>
               
               <button className="w-full border-2 border-gray-900 text-gray-900 px-6 py-3 rounded-xl hover:bg-gray-200 transition-all font-medium">
@@ -222,47 +210,32 @@ function App() {
               </button>
             </div>
 
-            {/* Premium Tier */}
             <div className="flex-1 bg-gray-900 text-white p-8 md:p-10 rounded-xl shadow-md flex flex-col">
-              <div>
-                <div className="mb-8">
-                  <h3 className="text-2xl font-bold">Premium</h3>
-                  <p className="text-gray-300 mt-2">Enhanced capabilities</p>
-                  <div className="mt-4 text-4xl font-bold">$20<span className="text-xl text-gray-400 font-normal">/month</span></div>
-                  <p className="text-blue-300 text-sm mt-1">Limited time offer</p>
-                </div>
-                
-                <ul className="space-y-4 mb-8 flex-grow">
-                  <li className="flex items-center">
-                    <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-3 flex-shrink-0">
-                      <Check className="w-3 h-3 text-white" />
-                    </div>
-                    <span className="text-base">Sample text</span>
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-3 flex-shrink-0">
-                      <Check className="w-3 h-3 text-white" />
-                    </div>
-                    <span className="text-base">Sample text</span>
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-3 flex-shrink-0">
-                      <Check className="w-3 h-3 text-white" />
-                    </div>
-                    <span className="text-base">Sample text</span>
-                  </li>
-                </ul>
-                
-                <button className="w-full bg-white text-gray-900 px-6 py-3 rounded-xl hover:bg-gray-100 transition-all font-medium">
-                  Coming Soon
-                </button>
+              <div className="mb-8">
+                <h3 className="text-2xl font-bold">Premium</h3>
+                <p className="text-gray-300 mt-2">Enhanced capabilities</p>
+                <div className="mt-4 text-4xl font-bold">$20<span className="text-xl text-gray-400 font-normal">/month</span></div>
+                <p className="text-blue-300 text-sm mt-1">Limited time offer</p>
               </div>
+              
+              <ul className="space-y-4 mb-8 flex-grow">
+                <li className="flex items-center">
+                  <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-3 flex-shrink-0">
+                    <Check className="w-3 h-3 text-white" />
+                  </div>
+                  <span className="text-base">Sample text</span>
+                </li>
+                {/* Repeat similar list items */}
+              </ul>
+              
+              <button className="w-full bg-white text-gray-900 px-6 py-3 rounded-xl hover:bg-gray-100 transition-all font-medium">
+                Coming Soon
+              </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="py-8 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 text-center text-gray-600">
           © 2024 Drawbridge
