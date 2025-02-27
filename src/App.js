@@ -89,7 +89,7 @@ function App() {
     },
     {
       icon: <Key className="w-7 h-7" />,
-      title: "API Integration",
+      title: "API Support",
       description: "Connect your existing provider keys"
     },
     {
