@@ -11,6 +11,8 @@ function App() {
   const [currentModel, setCurrentModel] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('idle'); // 'idle', 'loading', 'success', 'error'
+  const [modelOrder, setModelOrder] = useState([]); // Track shuffled order
+  const [currentIndex, setCurrentIndex] = useState(0); // Track position in shuffled order
 
   const aiModels = [
     // LLMs
@@ -46,31 +48,58 @@ function App() {
     }
   };
 
-  // Randomize initial model on page load
-  useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * aiModels.length);
-    setCurrentModel(randomIndex);
-  }, []);
+  // Fisher-Yates shuffle algorithm
+  const shuffleArray = (array) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
 
-  // Handle transitions with completely random selection each time
+  // Initialize shuffled order on first render
   useEffect(() => {
+    // Create array of indices [0, 1, 2, ..., aiModels.length-1]
+    const indices = Array.from({ length: aiModels.length }, (_, i) => i);
+    
+    // Create shuffled order
+    const shuffled = shuffleArray(indices);
+    
+    // Set the order and display the first model
+    setModelOrder(shuffled);
+    setCurrentModel(shuffled[0]);
+  }, [aiModels.length]);
+
+  // Handle transitions using the shuffled order
+  useEffect(() => {
+    // Skip if modelOrder hasn't been initialized yet
+    if (modelOrder.length === 0) return;
+    
     const intervalId = setInterval(() => {
       setTransitioning(true);
       
       setTimeout(() => {
-        // Pick a completely random model each time
-        let newIndex;
-        do {
-          newIndex = Math.floor(Math.random() * aiModels.length);
-        } while (newIndex === currentModel); // Ensure it's different from current
+        // Calculate next index, wrapping around if needed
+        const nextIndex = (currentIndex + 1) % modelOrder.length;
         
-        setCurrentModel(newIndex);
+        // If we've completed a full cycle, reshuffle the order
+        if (nextIndex === 0) {
+          const newOrder = shuffleArray(Array.from({ length: aiModels.length }, (_, i) => i));
+          setModelOrder(newOrder);
+          setCurrentModel(newOrder[0]);
+        } else {
+          // Otherwise, move to the next model in our current shuffled order
+          setCurrentModel(modelOrder[nextIndex]);
+        }
+        
+        setCurrentIndex(nextIndex);
         setTransitioning(false);
       }, 600);
     }, 3000);
 
     return () => clearInterval(intervalId);
-  }, [currentModel, aiModels.length]);
+  }, [currentIndex, modelOrder, aiModels.length]);
 
   const features = [
     {
