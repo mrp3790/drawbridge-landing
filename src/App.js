@@ -10,41 +10,32 @@ function App() {
   const [modelFilter, setModelFilter] = useState('all');
 
   const aiModels = [
-    // LLMs
-    { name: "GPT-4o", color: "#10a37f", type: "llm" },
-    { name: "Claude 3.7 Sonnet", color: "#ff6600", type: "llm" },
-    { name: "Deepseek-R1", color: "#0066ff", type: "llm" },
-    { name: "Grok-3", color: "#8e44ad", type: "llm" },
-    { name: "Gemini 2.0 Flash", color: "#4285f4", type: "llm" },
-    { name: "Llama-3.3", color: "#ffc107", type: "llm" },
-    { name: "o1-preview", color: "#607d8b", type: "llm" },
-    { name: "Qwen2.5-Max", color: "#00bcd4", type: "llm" },
-    { name: "o3-mini", color: "#e91e63", type: "llm" },
+    // Text models
+    { name: "GPT-4o", type: "text" },
+    { name: "Claude 3.7 Sonnet", type: "text" },
+    { name: "Deepseek-R1", type: "text" },
+    { name: "Grok-3", type: "text" },
+    { name: "Gemini 2.0 Flash", type: "text" },
+    { name: "Llama-3.3", type: "text" },
+    { name: "o1-preview", type: "text" },
+    { name: "Qwen2.5-Max", type: "text" },
+    { name: "o3-mini", type: "text" },
     
     // Image generation
-    { name: "DALL-E 3.5", color: "#e91e63", type: "image" },
-    { name: "Midjourney V6", color: "#8e44ad", type: "image" },
-    { name: "Stable Diffusion XL 2.0", color: "#00bcd4", type: "image" },
+    { name: "DALL-E 3.5", type: "image" },
+    { name: "Midjourney V6", type: "image" },
+    { name: "Stable Diffusion XL 2.0", type: "image" },
     
-    // Text-to-Speech
-    { name: "ElevenLabs Helio", color: "#ffc107", type: "speech" },
+    // Audio models
+    { name: "ElevenLabs Helio", type: "audio" },
   ];
 
   const getModelAction = (type) => {
     switch (type) {
-      case "llm": return "Generate text with";
+      case "text": return "Generate text with";
       case "image": return "Create images with";
-      case "speech": return "Produce audio with";
+      case "audio": return "Produce audio with";
       default: return "Access to";
-    }
-  };
-
-  const getModelType = (type) => {
-    switch (type) {
-      case "llm": return "Language Model";
-      case "image": return "Image Generation";
-      case "speech": return "Text-to-Speech";
-      default: return type;
     }
   };
 
@@ -196,7 +187,7 @@ function App() {
         </div>
       </section>
 
-      <section id="features" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-2 sm:px-4 bg-gray-50">
+      <section id="features" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-2 sm:px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8 md:mb-16">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">Fear of missing out?</h2>
@@ -222,43 +213,61 @@ function App() {
         </div>
       </section>
 
-      {/* New Models Section */}
-      <section id="models" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-2 sm:px-4">
+      {/* Models Section */}
+      <section id="models" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-2 sm:px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8 md:mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">Explore Our Models</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">Available Models</h2>
             <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">
-              Access the latest AI models all in one place
+              Access the latest AI technology through our unified platform
             </p>
             
-            {/* Model Type Filter */}
-            <div className="mt-6 max-w-xs mx-auto">
-              <select 
-                className="w-full px-4 py-2 rounded-xl border border-gray-200 focus:border-gray-400 focus:outline-none"
-                value={modelFilter}
-                onChange={(e) => setModelFilter(e.target.value)}
+            {/* Model Category Filter */}
+            <div className="mt-8 inline-flex bg-gray-100 p-1 rounded-lg">
+              <button 
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${modelFilter === 'all' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-600 hover:text-gray-900'}`}
+                onClick={() => setModelFilter('all')}
               >
-                <option value="all">All Models</option>
-                <option value="llm">Language Models</option>
-                <option value="image">Image Generation</option>
-                <option value="speech">Text-to-Speech</option>
-              </select>
+                All
+              </button>
+              <button 
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${modelFilter === 'text' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-600 hover:text-gray-900'}`}
+                onClick={() => setModelFilter('text')}
+              >
+                Text
+              </button>
+              <button 
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${modelFilter === 'image' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-600 hover:text-gray-900'}`}
+                onClick={() => setModelFilter('image')}
+              >
+                Image
+              </button>
+              <button 
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${modelFilter === 'audio' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-600 hover:text-gray-900'}`}
+                onClick={() => setModelFilter('audio')}
+              >
+                Audio
+              </button>
             </div>
           </div>
           
           {/* Models Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
             {filteredModels.map((model, index) => (
               <div 
                 key={index}
-                className="bg-white p-4 md:p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all flex flex-col"
+                className="bg-white p-6 rounded-xl border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow transition-all flex flex-col"
               >
-                <div 
-                  className="w-12 h-12 rounded-full mb-4 flex items-center justify-center" 
-                  style={{ backgroundColor: model.color }}
-                ></div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">{model.name}</h3>
-                <p className="text-sm text-gray-600 capitalize">{getModelType(model.type)}</p>
+                <div className="flex items-center justify-between mb-4">
+                  <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${
+                    model.type === 'text' ? 'bg-blue-50 text-blue-700' : 
+                    model.type === 'image' ? 'bg-purple-50 text-purple-700' : 
+                    'bg-amber-50 text-amber-700'
+                  }`}>
+                    {model.type}
+                  </span>
+                </div>
+                <h3 className="text-lg font-medium text-gray-900">{model.name}</h3>
               </div>
             ))}
           </div>
