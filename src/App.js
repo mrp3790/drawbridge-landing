@@ -220,45 +220,43 @@ function App() {
       <section id="models" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-2 sm:px-4 border-t border-gray-100">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">AI Models</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">Models</h2>
             <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">
-              Access cutting-edge AI through one platform
+              One platform, unlimited possibilities
             </p>
           </div>
           
-          {/* Category Tabs */}
-          <div className="flex justify-center mb-12 border-b border-gray-200 overflow-x-auto no-scrollbar">
-            {['all', 'text', 'image', 'audio', 'other'].map((category) => (
-              <button 
-                key={category}
-                className={`px-8 py-3 text-sm font-medium transition-all border-b-2 ${
-                  modelFilter === category 
-                    ? 'border-gray-900 text-gray-900' 
-                    : 'border-transparent text-gray-500 hover:text-gray-700'
-                }`}
-                onClick={() => {
-                  setModelFilter(category);
-                  setCurrentPage(1);
-                }}
-              >
-                {category === 'all' ? 'All' : category.charAt(0).toUpperCase() + category.slice(1)}
-              </button>
-            ))}
-          </div>
-          
-          {/* Search Row */}
-          <div className="flex items-center justify-between mb-8 max-w-6xl mx-auto">
-            <p className="text-sm text-gray-500">
-              Showing {filteredModels.length} models
-            </p>
-            <div className="relative w-64">
+          {/* Category and Search Bar */}
+          <div className="flex flex-col md:flex-row md:justify-between md:items-center max-w-6xl mx-auto mb-8">
+            <div className="overflow-x-auto pb-3 md:pb-0 no-scrollbar">
+              <div className="flex space-x-6">
+                {['all', 'text', 'image', 'audio', 'other'].map((category) => (
+                  <button 
+                    key={category}
+                    className={`text-sm font-medium whitespace-nowrap transition-all ${
+                      modelFilter === category 
+                        ? 'text-gray-900' 
+                        : 'text-gray-400 hover:text-gray-700'
+                    }`}
+                    onClick={() => {
+                      setModelFilter(category);
+                      setCurrentPage(1);
+                    }}
+                  >
+                    {category === 'all' ? 'All' : category.charAt(0).toUpperCase() + category.slice(1)}
+                  </button>
+                ))}
+              </div>
+            </div>
+            
+            <div className="relative mt-4 md:mt-0 w-full md:w-auto">
               <input
                 type="text"
                 placeholder="Search models"
-                className="w-full px-3 py-1.5 pl-8 rounded-lg border border-gray-200 focus:border-gray-400 focus:outline-none text-sm"
+                className="w-full md:w-64 py-2 pl-8 pr-3 rounded-md bg-gray-50 border-none focus:ring-1 focus:ring-gray-200 focus:outline-none text-sm"
               />
               <svg 
-                className="absolute left-2.5 top-2 w-3.5 h-3.5 text-gray-400" 
+                className="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-gray-400" 
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
@@ -269,67 +267,73 @@ function App() {
           </div>
           
           {/* Models Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 max-w-6xl mx-auto">
-            {filteredModels
-              .slice((currentPage - 1) * modelsPerPage, currentPage * modelsPerPage)
-              .map((model, index) => (
-              <div 
-                key={index}
-                className="bg-white rounded-lg hover:bg-gray-50 transition-all p-3 border border-gray-100"
-              >
-                <div className="mb-1.5">
-                  <span className="inline-block text-[10px] font-medium px-1.5 py-0.5 rounded-sm bg-gray-100 text-gray-800">
-                    {model.type}
-                  </span>
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
+              {filteredModels
+                .slice((currentPage - 1) * modelsPerPage, currentPage * modelsPerPage)
+                .map((model, index) => (
+                <div 
+                  key={index}
+                  className="group transition-all"
+                >
+                  <div className="pt-3 pb-3">
+                    <div className="mb-1">
+                      <span className="text-[10px] font-medium text-gray-500 uppercase tracking-wide">
+                        {model.type}
+                      </span>
+                    </div>
+                    <h3 className="text-sm font-medium text-gray-900 group-hover:text-gray-700 transition-colors">
+                      {model.name}
+                    </h3>
+                  </div>
                 </div>
-                <h3 className="text-xs font-medium text-gray-900 line-clamp-2">{model.name}</h3>
-              </div>
-            ))}
-          </div>
-          
-          {/* Pagination */}
-          {filteredModels.length > modelsPerPage && (
-            <div className="flex justify-center mt-10">
-              <div className="inline-flex items-center space-x-1">
-                <button
-                  onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                  disabled={currentPage === 1}
-                  className={`p-1.5 rounded-md ${
-                    currentPage === 1 
-                      ? 'text-gray-300 cursor-not-allowed' 
-                      : 'text-gray-600 hover:bg-gray-100'
-                  }`}
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                </button>
-                
-                <span className="text-sm text-gray-600">
-                  Page {currentPage} of {Math.ceil(filteredModels.length / modelsPerPage)}
-                </span>
-                
-                <button
-                  onClick={() => 
-                    setCurrentPage(Math.min(
-                      Math.ceil(filteredModels.length / modelsPerPage), 
-                      currentPage + 1
-                    ))
-                  }
-                  disabled={currentPage === Math.ceil(filteredModels.length / modelsPerPage)}
-                  className={`p-1.5 rounded-md ${
-                    currentPage === Math.ceil(filteredModels.length / modelsPerPage)
-                      ? 'text-gray-300 cursor-not-allowed'
-                      : 'text-gray-600 hover:bg-gray-100'
-                  }`}
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              </div>
+              ))}
             </div>
-          )}
+            
+            {/* Pagination */}
+            {filteredModels.length > modelsPerPage && (
+              <div className="flex justify-between items-center mt-10 pt-4 border-t border-gray-100">
+                <p className="text-xs text-gray-500">
+                  Showing {Math.min(modelsPerPage, filteredModels.length)} of {filteredModels.length} models
+                </p>
+                
+                <div className="flex items-center space-x-3">
+                  <button
+                    onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                    disabled={currentPage === 1}
+                    className={`${
+                      currentPage === 1 
+                        ? 'text-gray-200 cursor-not-allowed' 
+                        : 'text-gray-500 hover:text-gray-900'
+                    }`}
+                  >
+                    Previous
+                  </button>
+                  
+                  <span className="text-xs text-gray-500">
+                    Page {currentPage} of {Math.ceil(filteredModels.length / modelsPerPage)}
+                  </span>
+                  
+                  <button
+                    onClick={() => 
+                      setCurrentPage(Math.min(
+                        Math.ceil(filteredModels.length / modelsPerPage), 
+                        currentPage + 1
+                      ))
+                    }
+                    disabled={currentPage === Math.ceil(filteredModels.length / modelsPerPage)}
+                    className={`${
+                      currentPage === Math.ceil(filteredModels.length / modelsPerPage)
+                        ? 'text-gray-200 cursor-not-allowed'
+                        : 'text-gray-500 hover:text-gray-900'
+                    }`}
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </section>
 
