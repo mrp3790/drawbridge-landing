@@ -7,29 +7,26 @@ function App() {
   const [transitioning, setTransitioning] = useState(false);
   const [modelOrder, setModelOrder] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [modelFilter, setModelFilter] = useState('all');
-  const [currentPage, setCurrentPage] = useState(1);
-  const modelsPerPage = 16;
 
   const aiModels = [
-    // Text models
+    // LLMs
     { name: "GPT-4o", color: "#10a37f", type: "text" },
-    { name: "Claude 3.7 Sonnet", color: "#ff6600", type: "text" },
+    { name: "Claude 3.7 Sonnet", color: "#ff6600", type: "text"},
     { name: "Deepseek-R1", color: "#0066ff", type: "text" },
     { name: "Grok-3", color: "#8e44ad", type: "text" },
     { name: "Gemini 2.0 Flash", color: "#4285f4", type: "text" },
     { name: "Llama-3.3", color: "#ffc107", type: "text" },
-    { name: "o1-preview", color: "#607d8b", type: "text" },
-    { name: "Qwen2.5-Max", color: "#00bcd4", type: "text" },
     { name: "o3-mini", color: "#e91e63", type: "text" },
     
     // Image generation
     { name: "DALL-E 3.5", color: "#e91e63", type: "image" },
     { name: "Midjourney V6", color: "#8e44ad", type: "image" },
-    { name: "Stable Diffusion XL 2.0", color: "#00bcd4", type: "image" },
+    { name: "Stable Diffusion 3.5", color: "#00bcd4", type: "image" },
     
-    // Audio models
-    { name: "ElevenLabs Helio", color: "#ffc107", type: "audio" }
+    // Text-to-Speech
+    { name: "ElevenLabs Flash v2.5", color: "#ffc107", type: "audio" },
+    { name: "Kokoro v1.0", color: "#9c27b0", type: "audio" },
+    
   ];
 
   const getModelAction = (type) => {
@@ -37,14 +34,9 @@ function App() {
       case "text": return "Generate text with";
       case "image": return "Create images with";
       case "audio": return "Produce audio with";
-      case "other": return "Use";
-      default: return "Access";
+      default: return "Access to";
     }
   };
-
-  const filteredModels = modelFilter === 'all' 
-    ? aiModels 
-    : aiModels.filter(model => model.type === modelFilter);
 
   const shuffleArray = (array) => {
     const shuffled = [...array];
@@ -125,7 +117,6 @@ function App() {
             
             <nav className="hidden md:flex items-center justify-end gap-8">
               <a href="#features" className="text-gray-600 hover:text-gray-800 transition-all">Features</a>
-              <a href="#models" className="text-gray-600 hover:text-gray-800 transition-all">Models</a>
               <a href="#pricing" className="text-gray-600 hover:text-gray-800 transition-all">Pricing</a>
               <button className="bg-gray-900 text-white px-5 py-2 rounded-xl hover:bg-gray-800 transition-all">
                 Sign In
@@ -190,7 +181,7 @@ function App() {
         </div>
       </section>
 
-      <section id="features" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-2 sm:px-4 border-t border-gray-100">
+      <section id="features" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-2 sm:px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8 md:mb-16">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">Fear of missing out?</h2>
@@ -216,128 +207,7 @@ function App() {
         </div>
       </section>
 
-      {/* Models Section */}
-      <section id="models" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-2 sm:px-4 border-t border-gray-100">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">Models</h2>
-            <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">
-              One platform, unlimited possibilities
-            </p>
-          </div>
-          
-          {/* Category and Search Bar */}
-          <div className="flex flex-col md:flex-row md:justify-between md:items-center max-w-6xl mx-auto mb-8">
-            <div className="overflow-x-auto pb-3 md:pb-0 no-scrollbar">
-              <div className="flex space-x-6">
-                {['all', 'text', 'image', 'audio', 'other'].map((category) => (
-                  <button 
-                    key={category}
-                    className={`text-sm font-medium whitespace-nowrap transition-all ${
-                      modelFilter === category 
-                        ? 'text-gray-900' 
-                        : 'text-gray-400 hover:text-gray-700'
-                    }`}
-                    onClick={() => {
-                      setModelFilter(category);
-                      setCurrentPage(1);
-                    }}
-                  >
-                    {category === 'all' ? 'All' : category.charAt(0).toUpperCase() + category.slice(1)}
-                  </button>
-                ))}
-              </div>
-            </div>
-            
-            <div className="relative mt-4 md:mt-0 w-full md:w-auto">
-              <input
-                type="text"
-                placeholder="Search models"
-                className="w-full md:w-64 py-2 pl-8 pr-3 rounded-md bg-gray-50 border-none focus:ring-1 focus:ring-gray-200 focus:outline-none text-sm"
-              />
-              <svg 
-                className="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-gray-400" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
-          </div>
-          
-          {/* Models Grid */}
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
-              {filteredModels
-                .slice((currentPage - 1) * modelsPerPage, currentPage * modelsPerPage)
-                .map((model, index) => (
-                <div 
-                  key={index}
-                  className="group transition-all"
-                >
-                  <div className="pt-3 pb-3">
-                    <div className="mb-1">
-                      <span className="text-[10px] font-medium text-gray-500 uppercase tracking-wide">
-                        {model.type}
-                      </span>
-                    </div>
-                    <h3 className="text-sm font-medium text-gray-900 group-hover:text-gray-700 transition-colors">
-                      {model.name}
-                    </h3>
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            {/* Pagination */}
-            {filteredModels.length > modelsPerPage && (
-              <div className="flex justify-between items-center mt-10 pt-4 border-t border-gray-100">
-                <p className="text-xs text-gray-500">
-                  Showing {Math.min(modelsPerPage, filteredModels.length)} of {filteredModels.length} models
-                </p>
-                
-                <div className="flex items-center space-x-3">
-                  <button
-                    onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                    disabled={currentPage === 1}
-                    className={`${
-                      currentPage === 1 
-                        ? 'text-gray-200 cursor-not-allowed' 
-                        : 'text-gray-500 hover:text-gray-900'
-                    }`}
-                  >
-                    Previous
-                  </button>
-                  
-                  <span className="text-xs text-gray-500">
-                    Page {currentPage} of {Math.ceil(filteredModels.length / modelsPerPage)}
-                  </span>
-                  
-                  <button
-                    onClick={() => 
-                      setCurrentPage(Math.min(
-                        Math.ceil(filteredModels.length / modelsPerPage), 
-                        currentPage + 1
-                      ))
-                    }
-                    disabled={currentPage === Math.ceil(filteredModels.length / modelsPerPage)}
-                    className={`${
-                      currentPage === Math.ceil(filteredModels.length / modelsPerPage)
-                        ? 'text-gray-200 cursor-not-allowed'
-                        : 'text-gray-500 hover:text-gray-900'
-                    }`}
-                  >
-                    Next
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-
-      <section id="pricing" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-2 sm:px-4 border-t border-gray-100">
+      <section id="pricing" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-2 sm:px-4">
         <div className="max-w-7xl mx-auto w-full">
           <div className="text-center mb-8 md:mb-16">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">Simple, transparent pricing</h2>
