@@ -149,7 +149,7 @@ function App() {
               </h1>
             </div>
             <p className="text-lg md:text-xl lg:text-2xl text-gray-600 mt-2 md:mt-4 max-w-3xl mx-auto">
-              All the latest AI in one place
+              All the latest AI technology in one place
             </p>
           </div>
 
@@ -262,7 +262,7 @@ function App() {
 
       <footer className="py-8 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 text-center text-gray-600">
-          © 2024 Drawbridge
+          © 2025 Drawbridge
         </div>
       </footer>
     </div>
