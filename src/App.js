@@ -22,8 +22,6 @@ function App() {
     
     // Text-to-Speech
     { name: "ElevenLabs Helio", color: "#ffc107", type: "speech" },
-    { name: "OpenAI TTS-2", color: "#4285f4", type: "speech" },
-    { name: "PlayHT 2.0", color: "#607d8b", type: "speech" },
   ];
 
   const getModelAction = (type) => {
@@ -39,11 +37,7 @@ function App() {
     }
   };
 
-  // Setup for randomized display order without repeats
-  const [displayOrder, setDisplayOrder] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  // Initialize a random order on first render
+  // Setup for randomized initial order
   useEffect(() => {
     // Create array with indices of all models
     const indices = Array.from({ length: aiModels.length }, (_, i) => i);
@@ -51,7 +45,7 @@ function App() {
     // Shuffle the array
     const shuffled = [...indices].sort(() => 0.5 - Math.random());
     
-    setDisplayOrder(shuffled);
+    // Set the first model from the shuffled array
     setCurrentModel(shuffled[0]);
   }, []);
 
@@ -59,28 +53,14 @@ function App() {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setTransitioning(true);
-      
       setTimeout(() => {
-        // Move to next index, or start over if we've gone through all models
-        const nextIndex = (currentIndex + 1) % aiModels.length;
-        setCurrentIndex(nextIndex);
-        
-        // If we've gone through all models, reshuffle
-        if (nextIndex === 0) {
-          const indices = Array.from({ length: aiModels.length }, (_, i) => i);
-          const newOrder = [...indices].sort(() => 0.5 - Math.random());
-          setDisplayOrder(newOrder);
-          setCurrentModel(newOrder[0]);
-        } else {
-          setCurrentModel(displayOrder[nextIndex]);
-        }
-        
+        setCurrentModel((prev) => (prev + 1) % aiModels.length);
         setTransitioning(false);
       }, 600);
     }, 3000);
 
     return () => clearInterval(intervalId);
-  }, [currentIndex, displayOrder]);
+  }, []);
 
   const features = [
     {
