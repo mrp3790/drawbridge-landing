@@ -9,7 +9,7 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [modelFilter, setModelFilter] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
-  const modelsPerPage = 12;
+  const modelsPerPage = 16;
 
   const aiModels = [
     // Text models
@@ -29,11 +29,7 @@ function App() {
     { name: "Stable Diffusion XL 2.0", color: "#00bcd4", type: "image" },
     
     // Audio models
-    { name: "ElevenLabs Helio", color: "#ffc107", type: "audio" },
-    
-    // Other models
-    { name: "OpenAI Whisper", color: "#10a37f", type: "other" },
-    { name: "Segment Anything", color: "#4285f4", type: "other" },
+    { name: "ElevenLabs Helio", color: "#ffc107", type: "audio" }
   ];
 
   const getModelAction = (type) => {
@@ -221,12 +217,12 @@ function App() {
       </section>
 
       {/* Models Section */}
-      <section id="models" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-2 sm:px-4 bg-gray-50">
+      <section id="models" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-2 sm:px-4 border-t border-gray-100">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-8 md:mb-12">
+          <div className="text-center mb-8">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">Available Models</h2>
             <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">
-              Access hundreds of AI models through our unified platform
+              Access all AI models through our unified platform
             </p>
           </div>
           
@@ -238,7 +234,7 @@ function App() {
                 className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
                   modelFilter === category 
                     ? 'bg-gray-900 text-white' 
-                    : 'bg-white text-gray-700 hover:bg-gray-100'
+                    : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50'
                 }`}
                 onClick={() => {
                   setModelFilter(category);
@@ -256,10 +252,10 @@ function App() {
               <input
                 type="text"
                 placeholder="Search models..."
-                className="w-full px-4 py-3 pl-10 rounded-lg border border-gray-200 focus:border-gray-400 focus:outline-none"
+                className="w-full px-4 py-2 pl-10 rounded-lg border border-gray-200 focus:border-gray-400 focus:outline-none"
               />
               <svg 
-                className="absolute left-3 top-3.5 w-5 h-5 text-gray-400" 
+                className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" 
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
@@ -270,37 +266,23 @@ function App() {
           </div>
           
           {/* Models Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 max-w-6xl mx-auto">
             {filteredModels
               .slice((currentPage - 1) * modelsPerPage, currentPage * modelsPerPage)
               .map((model, index) => (
               <div 
                 key={index}
-                className="bg-white p-5 rounded-xl shadow-sm hover:shadow-md transition-all flex flex-col h-full"
+                className="bg-white p-3 rounded-lg border border-gray-200 hover:border-gray-300 transition-all"
               >
-                <div className="flex justify-between items-start mb-3">
-                  <div 
-                    className="w-2 h-2 rounded-full"
-                    style={{ backgroundColor: model.color }}
-                  ></div>
-                  <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
-                    model.type === 'text' ? 'bg-blue-50 text-blue-700' : 
-                    model.type === 'image' ? 'bg-purple-50 text-purple-700' : 
-                    model.type === 'audio' ? 'bg-amber-50 text-amber-700' :
-                    'bg-gray-50 text-gray-700'
-                  }`}>
-                    {model.type}
-                  </span>
-                </div>
-                <h3 className="text-lg font-medium text-gray-900">{model.name}</h3>
-                <div className="mt-auto pt-3">
-                  <button className="text-sm text-gray-600 hover:text-gray-900 flex items-center">
-                    <span>Learn more</span>
-                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                </div>
+                <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+                  model.type === 'text' ? 'bg-blue-50 text-blue-700' : 
+                  model.type === 'image' ? 'bg-purple-50 text-purple-700' : 
+                  model.type === 'audio' ? 'bg-amber-50 text-amber-700' :
+                  'bg-gray-50 text-gray-700'
+                }`}>
+                  {model.type}
+                </span>
+                <h3 className="text-sm font-medium text-gray-900 mt-2">{model.name}</h3>
               </div>
             ))}
           </div>
@@ -308,13 +290,13 @@ function App() {
           {/* Pagination */}
           {filteredModels.length > modelsPerPage && (
             <div className="flex justify-center mt-8">
-              <nav className="inline-flex rounded-md shadow">
+              <nav className="inline-flex rounded-md">
                 <button
                   onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
                   className={`px-3 py-1 rounded-l-md border ${
                     currentPage === 1 
-                      ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                      ? 'bg-gray-50 text-gray-400 cursor-not-allowed' 
                       : 'bg-white text-gray-700 hover:bg-gray-50'
                   }`}
                 >
@@ -348,7 +330,7 @@ function App() {
                   disabled={currentPage === Math.ceil(filteredModels.length / modelsPerPage)}
                   className={`px-3 py-1 rounded-r-md border ${
                     currentPage === Math.ceil(filteredModels.length / modelsPerPage)
-                      ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                      ? 'bg-gray-50 text-gray-400 cursor-not-allowed'
                       : 'bg-white text-gray-700 hover:bg-gray-50'
                   }`}
                 >
@@ -360,7 +342,7 @@ function App() {
         </div>
       </section>
 
-      <section id="pricing" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-2 sm:px-4">
+      <section id="pricing" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-2 sm:px-4 border-t border-gray-100">
         <div className="max-w-7xl mx-auto w-full">
           <div className="text-center mb-8 md:mb-16">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">Simple, transparent pricing</h2>
