@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { MessageSquare, Zap, Key, Server, Check, ArrowRight, Shield } from 'lucide-react';
 import logo from './logo.png';
 
+// Import Firebase
+import { db } from './firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+
 function App() {
   const [email, setEmail] = useState('');
   const [currentModel, setCurrentModel] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
-  const [showError, setShowError] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('idle'); // 'idle', 'loading', 'success', 'error'
 
   const aiModels = [
     // LLMs
@@ -85,15 +89,45 @@ function App() {
     }
   ];
 
-
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Email submitted:', email);
-    setShowError(true);
-    setTimeout(() => {
-      setShowError(false);
-    }, 3000);
+    
+    // Basic email validation
+    if (!email || !email.includes('@') || !email.includes('.')) {
+      setSubmitStatus('error');
+      setTimeout(() => setSubmitStatus('idle'), 3000);
+      return;
+    }
+    
+    setSubmitStatus('loading');
+    
+    try {
+      // Save to Firebase Firestore
+      await addDoc(collection(db, "waitlist"), {
+        email: email,
+        timestamp: serverTimestamp(),
+        source: window.location.href
+      });
+      
+      // Success state
+      setSubmitStatus('success');
+      console.log('Email submitted:', email);
+      
+      // Reset the form after success
+      setTimeout(() => {
+        setEmail('');
+        setSubmitStatus('idle');
+      }, 3000);
+      
+    } catch (error) {
+      console.error('Error submitting email:', error);
+      setSubmitStatus('error');
+      
+      // Reset error state after a delay
+      setTimeout(() => {
+        setSubmitStatus('idle');
+      }, 3000);
+    }
   };
 
   return (
@@ -103,7 +137,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-2 sm:px-4">
           <div className="grid grid-cols-[max-content_1fr_max-content] items-center h-14 md:h-16 gap-2 md:gap-4">
             {/* Logo Section - Left Edge */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.location.href = '/'}>
               <img 
                 src={logo} 
                 alt="Drawbridge Logo" 
@@ -132,9 +166,9 @@ function App() {
       </header>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col justify-center pt-16 pb-16 px-4">
+      <section className="min-h-screen flex flex-col justify-center pt-16 pb-16 px-2 sm:px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="mb-16">
+          <div className="mb-8 md:mb-16">
             <div className="h-auto min-h-16 md:h-28 flex items-center justify-center mb-4">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center leading-tight">
                 <span 
@@ -153,7 +187,7 @@ function App() {
                 </span>
               </h1>
             </div>
-            <p className="text-xl md:text-2xl text-gray-600 mt-4 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl lg:text-2xl text-gray-600 mt-2 md:mt-4 max-w-3xl mx-auto">
               All the latest AI in one place
             </p>
           </div>
@@ -169,10 +203,26 @@ function App() {
             />
             <button
               type="submit"
-              className="w-full bg-gray-900 text-white px-4 py-3 md:px-6 md:py-4 rounded-xl hover:bg-gray-800 transition-all text-base md:text-lg font-medium"
+              disabled={submitStatus === 'loading'}
+              className={`w-full bg-gray-900 text-white px-4 py-3 md:px-6 md:py-4 rounded-xl hover:bg-gray-800 transition-all text-base md:text-lg font-medium ${
+                submitStatus === 'loading' ? 'opacity-70 cursor-not-allowed' : ''
+              }`}
             >
-              {showError ? (
-                <span className="text-red-300">Service not available yet</span>
+              {submitStatus === 'loading' ? (
+                <span className="flex items-center justify-center">
+                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Submitting...
+                </span>
+              ) : submitStatus === 'success' ? (
+                <span className="flex items-center justify-center text-green-300">
+                  <Check className="inline-block w-5 h-5 mr-2" />
+                  Added to waitlist!
+                </span>
+              ) : submitStatus === 'error' ? (
+                <span className="text-red-300">Error submitting. Try again.</span>
               ) : (
                 <>
                   <span>Join Waitlist</span>
@@ -197,7 +247,7 @@ function App() {
             <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">Access multiple AI models through a single interface</p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-4 md:gap-8 max-w-6xl mx-auto">
             {features.map((feature, index) => (
               <div
                 key={index}
@@ -224,7 +274,7 @@ function App() {
             <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">Choose the plan that works best for you</p>
           </div>
           
-          <div className="flex flex-col md:flex-row justify-center items-stretch gap-8 mx-auto w-full max-w-6xl px-4">
+          <div className="flex flex-col md:flex-row justify-center items-stretch gap-4 md:gap-8 mx-auto w-full max-w-6xl px-2 sm:px-4">
             <div className="flex-1 bg-gray-50 p-6 md:p-8 lg:p-10 rounded-xl border border-gray-200 shadow-sm flex flex-col">
               <div className="mb-6 md:mb-8">
                 <h3 className="text-xl md:text-2xl font-bold text-gray-900">Free</h3>
