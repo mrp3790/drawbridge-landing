@@ -2,16 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { MessageSquare, Zap, Key, Server, Check, ArrowRight, Shield } from 'lucide-react';
 import logo from './logo.png';
 
-// Import waitlist helper
-import { saveEmailToWaitlist } from './waitlist';
-
 function App() {
-  const [email, setEmail] = useState('');
   const [currentModel, setCurrentModel] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState('idle'); // 'idle', 'loading', 'success', 'error'
-  const [modelOrder, setModelOrder] = useState([]); // Track shuffled order
-  const [currentIndex, setCurrentIndex] = useState(0); // Track position in shuffled order
+  const [modelOrder, setModelOrder] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const aiModels = [
     // LLMs
@@ -36,18 +31,13 @@ function App() {
 
   const getModelAction = (type) => {
     switch (type) {
-      case "llm":
-        return "Generate text with";
-      case "image":
-        return "Create images with";
-      case "speech":
-        return "Produce audio with";
-      default:
-        return "Access to";
+      case "llm": return "Generate text with";
+      case "image": return "Create images with";
+      case "speech": return "Produce audio with";
+      default: return "Access to";
     }
   };
 
-  // Fisher-Yates shuffle algorithm
   const shuffleArray = (array) => {
     const shuffled = [...array];
     for (let i = shuffled.length - 1; i > 0; i--) {
@@ -57,41 +47,27 @@ function App() {
     return shuffled;
   };
 
-  // Initialize shuffled order on first render
   useEffect(() => {
-    // Create array of indices [0, 1, 2, ..., aiModels.length-1]
     const indices = Array.from({ length: aiModels.length }, (_, i) => i);
-    
-    // Create shuffled order
     const shuffled = shuffleArray(indices);
-    
-    // Set the order and display the first model
     setModelOrder(shuffled);
     setCurrentModel(shuffled[0]);
   }, [aiModels.length]);
 
-  // Handle transitions using the shuffled order
   useEffect(() => {
-    // Skip if modelOrder hasn't been initialized yet
     if (modelOrder.length === 0) return;
     
     const intervalId = setInterval(() => {
       setTransitioning(true);
-      
       setTimeout(() => {
-        // Calculate next index, wrapping around if needed
         const nextIndex = (currentIndex + 1) % modelOrder.length;
-        
-        // If we've completed a full cycle, reshuffle the order
         if (nextIndex === 0) {
           const newOrder = shuffleArray(Array.from({ length: aiModels.length }, (_, i) => i));
           setModelOrder(newOrder);
           setCurrentModel(newOrder[0]);
         } else {
-          // Otherwise, move to the next model in our current shuffled order
           setCurrentModel(modelOrder[nextIndex]);
         }
-        
         setCurrentIndex(nextIndex);
         setTransitioning(false);
       }, 600);
@@ -99,39 +75,6 @@ function App() {
 
     return () => clearInterval(intervalId);
   }, [currentIndex, modelOrder, aiModels.length]);
-
-  // SIMPLIFIED email submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    // Basic email validation
-    if (!email || !email.includes('@') || !email.includes('.')) {
-      setSubmitStatus('error');
-      setTimeout(() => setSubmitStatus('idle'), 3000);
-      return;
-    }
-    
-    setSubmitStatus('loading');
-    
-    // Simulate network delay
-    setTimeout(() => {
-      // Save to local storage
-      const success = saveEmailToWaitlist(email);
-      
-      if (success) {
-        setSubmitStatus('success');
-        
-        // Reset form
-        setTimeout(() => {
-          setEmail('');
-          setSubmitStatus('idle');
-        }, 3000);
-      } else {
-        setSubmitStatus('error');
-        setTimeout(() => setSubmitStatus('idle'), 3000);
-      }
-    }, 1000);
-  };
 
   const features = [
     {
@@ -158,25 +101,18 @@ function App() {
 
   return (
     <div className="bg-white font-sans">
-      {/* Fixed Header with AGGRESSIVE Logo Positioning to Left Edge */}
       <header className="fixed top-0 w-full bg-white border-b border-gray-100 z-50">
-        <div style={{paddingLeft: 0, marginLeft: 0}} className="w-full max-w-7xl mx-auto relative">
+        <div className="w-full max-w-7xl mx-auto relative">
           <div className="grid grid-cols-[max-content_1fr_max-content] items-center h-14 md:h-16 gap-2 md:gap-4">
-            {/* Logo Section - EXTREMELY Aggressive Left Edge Alignment */}
             <div 
               className="flex items-center gap-2 cursor-pointer" 
-              style={{paddingLeft: 0, marginLeft: "-1px"}}
+              style={{ marginLeft: "-1px" }}
               onClick={() => window.location.href = '/'}
             >
-              <img 
-                src={logo} 
-                alt="Drawbridge Logo" 
-                className="w-6 h-6 md:w-8 md:h-8" 
-              />
+              <img src={logo} alt="Drawbridge Logo" className="w-6 h-6 md:w-8 md:h-8" />
               <span className="text-lg md:text-xl font-semibold text-gray-800">Drawbridge</span>
             </div>
             
-            {/* Navigation - Right Edge */}
             <nav className="hidden md:flex items-center justify-end gap-8 pr-4">
               <a href="#features" className="text-gray-600 hover:text-gray-800 transition-all">Features</a>
               <a href="#pricing" className="text-gray-600 hover:text-gray-800 transition-all">Pricing</a>
@@ -185,9 +121,8 @@ function App() {
               </button>
             </nav>
 
-            {/* Mobile Menu */}
             <button className="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 justify-self-end mr-2">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
@@ -195,23 +130,16 @@ function App() {
         </div>
       </header>
 
-      {/* Hero Section */}
       <section className="min-h-screen flex flex-col justify-center pt-16 pb-16 px-2 sm:px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-8 md:mb-16">
             <div className="h-auto min-h-16 md:h-28 flex items-center justify-center mb-4">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center leading-tight">
-                <span 
-                  className={`inline-block transition-all duration-500 ease-in-out ${
-                    transitioning ? 'opacity-0 transform -translate-y-2' : 'opacity-100 transform translate-y-0'
-                  }`}
-                >
+                <span className={`inline-block transition-all duration-500 ease-in-out ${
+                  transitioning ? 'opacity-0 transform -translate-y-2' : 'opacity-100 transform translate-y-0'
+                }`}>
                   {getModelAction(aiModels[currentModel].type)}{" "}
-                  <span 
-                    style={{
-                      color: aiModels[currentModel].color,
-                    }}
-                  >
+                  <span style={{ color: aiModels[currentModel].color }}>
                     {aiModels[currentModel].name}
                   </span>
                 </span>
@@ -222,43 +150,24 @@ function App() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+          <form 
+            action="https://formspree.io/f/xldgqelq" 
+            method="POST" 
+            className="max-w-md mx-auto"
+          >
             <input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
               placeholder="Your email"
               className="w-full px-4 py-3 md:px-6 md:py-4 rounded-xl border border-gray-200 focus:border-gray-400 focus:outline-none mb-4 text-base md:text-lg"
               required
             />
             <button
               type="submit"
-              disabled={submitStatus === 'loading'}
-              className={`w-full bg-gray-900 text-white px-4 py-3 md:px-6 md:py-4 rounded-xl hover:bg-gray-800 transition-all text-base md:text-lg font-medium ${
-                submitStatus === 'loading' ? 'opacity-70 cursor-not-allowed' : ''
-              }`}
+              className="w-full bg-gray-900 text-white px-4 py-3 md:px-6 md:py-4 rounded-xl hover:bg-gray-800 transition-all text-base md:text-lg font-medium"
             >
-              {submitStatus === 'loading' ? (
-                <span className="flex items-center justify-center">
-                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Submitting...
-                </span>
-              ) : submitStatus === 'success' ? (
-                <span className="flex items-center justify-center text-green-300">
-                  <Check className="inline-block w-5 h-5 mr-2" />
-                  Added to waitlist!
-                </span>
-              ) : submitStatus === 'error' ? (
-                <span className="text-red-300">Error submitting. Try again.</span>
-              ) : (
-                <>
-                  <span>Join Waitlist</span>
-                  <ArrowRight className="inline-block w-5 h-5 ml-2" />
-                </>
-              )}
+              Join Waitlist
+              <ArrowRight className="inline-block w-5 h-5 ml-2" />
             </button>
             
             <div className="mt-4 text-gray-500 text-sm text-center">
@@ -269,7 +178,6 @@ function App() {
         </div>
       </section>
 
-      {/* Features Section */}
       <section id="features" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-2 sm:px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8 md:mb-16">
@@ -296,7 +204,6 @@ function App() {
         </div>
       </section>
 
-      {/* Pricing Section */}
       <section id="pricing" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-2 sm:px-4">
         <div className="max-w-7xl mx-auto w-full">
           <div className="text-center mb-8 md:mb-16">
