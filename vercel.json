@@ -5,8 +5,9 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "nodeVersion": "16.x",
-        "distDir": "build"
+        "nodeVersion": "22.x",
+        "distDir": "build",
+        "installCommand": "npm install && npm install yocto-queue@0.1.0 --no-save && npm install react-dev-utils/node_modules/p-limit/node_modules/yocto-queue@0.1.0 --no-save"
       }
     }
   ],
