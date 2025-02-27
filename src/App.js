@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MessageSquare, Zap, Key, Server, ArrowRight, Shield } from 'lucide-react';
+import { MessageSquare, Zap, Key, Server, Check, ArrowRight, Shield } from 'lucide-react';
 import logo from './logo.png';
 
 function App() {
@@ -9,6 +9,7 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const aiModels = [
+    // LLMs
     { name: "GPT-4o", color: "#10a37f", type: "llm" },
     { name: "Claude 3.7 Sonnet", color: "#ff6600", type: "llm" },
     { name: "Deepseek-R1", color: "#0066ff", type: "llm" },
@@ -18,9 +19,13 @@ function App() {
     { name: "o1-preview", color: "#607d8b", type: "llm" },
     { name: "Qwen2.5-Max", color: "#00bcd4", type: "llm" },
     { name: "o3-mini", color: "#e91e63", type: "llm" },
+    
+    // Image generation
     { name: "DALL-E 3.5", color: "#e91e63", type: "image" },
     { name: "Midjourney V6", color: "#8e44ad", type: "image" },
     { name: "Stable Diffusion XL 2.0", color: "#00bcd4", type: "image" },
+    
+    // Text-to-Speech
     { name: "ElevenLabs Helio", color: "#ffc107", type: "speech" },
   ];
 
@@ -50,7 +55,7 @@ function App() {
   }, [aiModels.length]);
 
   useEffect(() => {
-    if (!modelOrder.length) return;
+    if (modelOrder.length === 0) return;
     
     const intervalId = setInterval(() => {
       setTransitioning(true);
@@ -72,60 +77,87 @@ function App() {
   }, [currentIndex, modelOrder, aiModels.length]);
 
   const features = [
-    { icon: <MessageSquare className="w-7 h-7" />, title: "All in One", description: "Access to leading LLMs, image and voice models" },
-    { icon: <Zap className="w-7 h-7" />, title: "Up to Date", description: "Latest models added as they release" },
-    { icon: <Key className="w-7 h-7" />, title: "API Integration", description: "Connect your existing provider keys" },
-    { icon: <Server className="w-7 h-7" />, title: "Private Data", description: "Enhanced privacy for sensitive conversations" }
+    {
+      icon: <MessageSquare className="w-7 h-7" />,
+      title: "All in One",
+      description: "Access to leading LLMs, image and voice models"
+    },
+    {
+      icon: <Zap className="w-7 h-7" />,
+      title: "Up to Date",
+      description: "Latest models added as they release"
+    },
+    {
+      icon: <Key className="w-7 h-7" />,
+      title: "API Integration",
+      description: "Connect your existing provider keys"
+    },
+    {
+      icon: <Server className="w-7 h-7" />,
+      title: "Private Data",
+      description: "Enhanced privacy for sensitive conversations"
+    }
   ];
 
   return (
     <div className="bg-white font-sans">
       <header className="fixed top-0 w-full bg-white border-b border-gray-100 z-50">
-        <div className="w-full px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-14 md:h-16">
-            <div className="flex items-center flex-shrink-0" onClick={() => window.location.href = '/'}>
-              <img src={logo} alt="Logo" className="w-6 h-6 md:w-8 md:h-8" />
-              <span className="ml-2 text-lg md:text-xl font-semibold text-gray-800">Drawbridge</span>
+        {/* Changed container padding */}
+        <div className="w-full max-w-7xl mx-auto relative px-4 sm:px-6 lg:px-8">
+          {/* Adjusted grid alignment */}
+          <div className="grid grid-cols-[auto_1fr_auto] items-center h-14 md:h-16 w-full">
+            {/* Removed left margin */}
+            <div 
+              className="flex items-center gap-2 cursor-pointer -ml-2 md:-ml-1"
+              onClick={() => window.location.href = '/'}
+            >
+              <img src={logo} alt="Drawbridge Logo" className="w-6 h-6 md:w-8 md:h-8" />
+              <span className="text-lg md:text-xl font-semibold text-gray-800">Drawbridge</span>
             </div>
             
-            <nav className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-gray-600 hover:text-gray-800">Features</a>
-              <a href="#pricing" className="text-gray-600 hover:text-gray-800">Pricing</a>
-              <button className="bg-gray-900 text-white px-5 py-2 rounded-xl hover:bg-gray-800">
+            <nav className="hidden md:flex items-center justify-end gap-8">
+              <a href="#features" className="text-gray-600 hover:text-gray-800 transition-all">Features</a>
+              <a href="#pricing" className="text-gray-600 hover:text-gray-800 transition-all">Pricing</a>
+              <button className="bg-gray-900 text-white px-5 py-2 rounded-xl hover:bg-gray-800 transition-all">
                 Sign In
               </button>
             </nav>
 
-            <button className="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100">
+            <button className="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 justify-self-end">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
           </div>
         </div>
       </header>
 
-      <section className="min-h-screen flex flex-col justify-center pt-16 pb-16 px-4 sm:px-6">
+      {/* Keep all other sections EXACTLY the same as before */}
+      <section className="min-h-screen flex flex-col justify-center pt-16 pb-16 px-2 sm:px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-8 md:mb-16">
             <div className="h-auto min-h-16 md:h-28 flex items-center justify-center mb-4">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center leading-tight">
                 <span className={`inline-block transition-all duration-500 ease-in-out ${
-                  transitioning ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'
+                  transitioning ? 'opacity-0 transform -translate-y-2' : 'opacity-100 transform translate-y-0'
                 }`}>
-                  {getModelAction(aiModels[currentModel].Type)}{" "}
+                  {getModelAction(aiModels[currentModel].type)}{" "}
                   <span style={{ color: aiModels[currentModel].color }}>
                     {aiModels[currentModel].name}
                   </span>
                 </span>
               </h1>
             </div>
-            <p className="text-lg md:text-xl lg:text-2xl text-gray-600 mt-4 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl lg:text-2xl text-gray-600 mt-2 md:mt-4 max-w-3xl mx-auto">
               All the latest AI in one place
             </p>
           </div>
 
-          <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" className="max-w-md mx-auto">
+          <form 
+            action="https://formspree.io/f/xldgqelq" 
+            method="POST" 
+            className="max-w-md mx-auto"
+          >
             <input
               type="email"
               name="email"
@@ -141,7 +173,7 @@ function App() {
               <ArrowRight className="inline-block w-5 h-5 ml-2" />
             </button>
             
-            <div className="mt-4 text-gray-500 text-sm">
+            <div className="mt-4 text-gray-500 text-sm text-center">
               <Shield className="inline-block w-4 h-4 mr-1" />
               <span>We respect your privacy</span>
             </div>
@@ -149,20 +181,25 @@ function App() {
         </div>
       </section>
 
-      <section id="features" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-4 sm:px-6 bg-gray-50">
+      <section id="features" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-2 sm:px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8 md:mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Fear of missing out?</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">Fear of missing out?</h2>
             <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">Access multiple AI models through a single interface</p>
           </div>
           
           <div className="grid md:grid-cols-2 gap-4 md:gap-8 max-w-6xl mx-auto">
             {features.map((feature, index) => (
-              <div key={index} className="bg-white p-6 md:p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-md">
-                <div className="w-12 h-12 md:w-14 md:h-14 bg-gray-900 text-white rounded-xl flex items-center justify-center mb-4">
+              <div
+                key={index}
+                className="bg-white p-4 md:p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all"
+              >
+                <div className="w-12 h-12 md:w-14 md:h-14 bg-gray-900 text-white rounded-xl flex items-center justify-center mb-3 md:mb-5">
                   {feature.icon}
                 </div>
-                <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2">{feature.title}</h3>
+                <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3">
+                  {feature.title}
+                </h3>
                 <p className="text-gray-600 text-sm md:text-base">{feature.description}</p>
               </div>
             ))}
@@ -170,48 +207,52 @@ function App() {
         </div>
       </section>
 
-      <section id="pricing" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-4 sm:px-6">
-        <div className="max-w-7xl mx-auto">
+      <section id="pricing" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-2 sm:px-4">
+        <div className="max-w-7xl mx-auto w-full">
           <div className="text-center mb-8 md:mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Simple, transparent pricing</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">Simple, transparent pricing</h2>
             <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">Choose the plan that works best for you</p>
           </div>
           
-          <div className="flex flex-col md:flex-row justify-center gap-6 md:gap-8 max-w-6xl mx-auto">
-            <div className="flex-1 bg-gray-50 p-6 md:p-8 rounded-xl border border-gray-200">
+          <div className="flex flex-col md:flex-row justify-center items-stretch gap-4 md:gap-8 mx-auto w-full max-w-6xl px-2 sm:px-4">
+            <div className="flex-1 bg-gray-50 p-6 md:p-8 lg:p-10 rounded-xl border border-gray-200 shadow-sm flex flex-col">
               <div className="mb-6 md:mb-8">
                 <h3 className="text-xl md:text-2xl font-bold text-gray-900">Free</h3>
-                <div className="mt-4 text-3xl md:text-4xl font-bold">$0<span className="text-lg md:text-xl text-gray-500">/month</span></div>
+                <div className="mt-3 md:mt-4 text-3xl md:text-4xl font-bold">$0<span className="text-lg md:text-xl text-gray-500 font-normal">/month</span></div>
               </div>
-              <ul className="space-y-4 mb-6 md:mb-8">
+              
+              <ul className="space-y-3 md:space-y-4 mb-6 md:mb-8 flex-grow">
                 {[1, 2, 3].map((i) => (
                   <li key={i} className="flex items-center text-gray-700">
-                    <Check className="w-4 h-4 md:w-5 md:h-5 text-gray-900 mr-3" />
+                    <Check className="w-4 h-4 md:w-5 md:h-5 text-gray-900 mr-2 md:mr-3 flex-shrink-0" />
                     <span className="text-sm md:text-base">Lorem ipsum dolor sit amet</span>
                   </li>
                 ))}
               </ul>
-              <button className="w-full border-2 border-gray-900 text-gray-900 px-4 py-2 md:px-6 md:py-3 rounded-xl hover:bg-gray-200">
+              
+              <button className="w-full border-2 border-gray-900 text-gray-900 px-4 py-2 md:px-6 md:py-3 rounded-xl hover:bg-gray-200 transition-all font-medium">
                 Sign Up
               </button>
             </div>
 
-            <div className="flex-1 bg-gray-900 text-white p-6 md:p-8 rounded-xl shadow-lg">
+            <div className="flex-1 bg-gray-900 text-white p-6 md:p-8 lg:p-10 rounded-xl shadow-md flex flex-col">
               <div className="mb-6 md:mb-8">
                 <h3 className="text-xl md:text-2xl font-bold">Premium</h3>
-                <div className="mt-4 text-3xl md:text-4xl font-bold">$20<span className="text-lg md:text-xl text-gray-400">/month</span></div>
+                <div className="mt-3 md:mt-4 text-3xl md:text-4xl font-bold">$20<span className="text-lg md:text-xl text-gray-400 font-normal">/month</span></div>
               </div>
-              <ul className="space-y-4 mb-6 md:mb-8">
+              
+              <ul className="space-y-3 md:space-y-4 mb-6 md:mb-8 flex-grow">
                 {[1, 2, 3].map((i) => (
                   <li key={i} className="flex items-center">
-                    <div className="w-4 h-4 md:w-5 md:h-5 rounded-full bg-blue-500 flex items-center justify-center mr-3">
+                    <div className="w-4 h-4 md:w-5 md:h-5 rounded-full bg-blue-500 flex items-center justify-center mr-2 md:mr-3 flex-shrink-0">
                       <Check className="w-2 h-2 md:w-3 md:h-3 text-white" />
                     </div>
                     <span className="text-sm md:text-base">Lorem ipsum dolor sit amet</span>
                   </li>
                 ))}
               </ul>
-              <button className="w-full bg-white text-gray-900 px-4 py-2 md:px-6 md:py-3 rounded-xl hover:bg-gray-100">
+              
+              <button className="w-full bg-white text-gray-900 px-4 py-2 md:px-6 md:py-3 rounded-xl hover:bg-gray-100 transition-all font-medium">
                 Coming Soon
               </button>
             </div>
