@@ -16,4 +16,27 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export { db };
+// Simple helper function to add emails to waitlist
+const addEmailToWaitlist = async (email) => {
+  try {
+    // Importing here to reduce bundle size
+    const { collection, addDoc, serverTimestamp } = await import('firebase/firestore');
+    
+    // Create a simpler document structure
+    const docData = {
+      email: email,
+      date: new Date().toISOString(),
+      createdAt: serverTimestamp()
+    };
+    
+    // Add with explicit collection path
+    const docRef = await addDoc(collection(db, "waitlist"), docData);
+    console.log("Document written with ID: ", docRef.id);
+    return { success: true, id: docRef.id };
+  } catch (error) {
+    console.error("Error adding document: ", error);
+    return { success: false, error: error.message };
+  }
+};
+
+export { db, addEmailToWaitlist };
