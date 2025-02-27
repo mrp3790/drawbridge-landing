@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { MessageSquare, Zap, Key, Server, Check, ArrowRight, Shield } from 'lucide-react';
 import logo from './logo.png';
 
-// Import Firebase
-import { db } from './firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+// Import Firebase helper function
+import { addEmailToWaitlist } from './firebase';
 
 function App() {
   const [email, setEmail] = useState('');
@@ -34,6 +33,9 @@ function App() {
     // Text-to-Speech
     { name: "ElevenLabs Helio", color: "#ffc107", type: "speech" },
   ];
+
+  // Fisher-Yates shuffle and other functions remain the same...
+  // ... [existing code for shuffle, model order, etc]
 
   const getModelAction = (type) => {
     switch (type) {
@@ -101,6 +103,48 @@ function App() {
     return () => clearInterval(intervalId);
   }, [currentIndex, modelOrder, aiModels.length]);
 
+  // Updated handleSubmit with better error handling
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Basic email validation
+    if (!email || !email.includes('@') || !email.includes('.')) {
+      setSubmitStatus('error');
+      console.error("Invalid email format");
+      setTimeout(() => setSubmitStatus('idle'), 3000);
+      return;
+    }
+    
+    setSubmitStatus('loading');
+    
+    try {
+      // Use our helper function to add the email
+      const result = await addEmailToWaitlist(email);
+      
+      if (result.success) {
+        // Success state
+        setSubmitStatus('success');
+        console.log("Email added successfully:", email);
+        
+        // Reset the form after success
+        setTimeout(() => {
+          setEmail('');
+          setSubmitStatus('idle');
+        }, 3000);
+      } else {
+        throw new Error(result.error || "Failed to add email");
+      }
+    } catch (error) {
+      console.error('Error submitting email:', error);
+      setSubmitStatus('error');
+      
+      // Reset error state after a delay
+      setTimeout(() => {
+        setSubmitStatus('idle');
+      }, 3000);
+    }
+  };
+
   const features = [
     {
       icon: <MessageSquare className="w-7 h-7" />,
@@ -124,58 +168,18 @@ function App() {
     }
   ];
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    // Basic email validation
-    if (!email || !email.includes('@') || !email.includes('.')) {
-      setSubmitStatus('error');
-      setTimeout(() => setSubmitStatus('idle'), 3000);
-      return;
-    }
-    
-    setSubmitStatus('loading');
-    
-    try {
-      // Add to the waitlist collection
-      await addDoc(collection(db, "waitlist"), {
-        email: email,
-        timestamp: serverTimestamp(),
-        source: window.location.href
-      });
-      
-      // Success state
-      setSubmitStatus('success');
-      
-      // Reset the form after success
-      setTimeout(() => {
-        setEmail('');
-        setSubmitStatus('idle');
-      }, 3000);
-      
-    } catch (error) {
-      console.error('Error submitting email:', error);
-      setSubmitStatus('error');
-      
-      // Reset error state after a delay
-      setTimeout(() => {
-        setSubmitStatus('idle');
-      }, 3000);
-    }
-  };
-
   return (
     <div className="bg-white font-sans">
-      {/* Fixed Header with Grid Layout */}
+      {/* Fixed Header with UPDATED Logo Positioning - Truly at left edge */}
       <header className="fixed top-0 w-full bg-white border-b border-gray-100 z-50">
-        <div className="w-full max-w-7xl mx-auto px-0 md:px-4 lg:px-6">
+        <div className="container max-w-7xl mx-auto px-0">
           <div className="grid grid-cols-[max-content_1fr_max-content] items-center h-14 md:h-16 gap-2 md:gap-4">
-            {/* Logo Section - Left Edge */}
-            <div className="flex items-center gap-2 cursor-pointer pl-2 md:pl-0" onClick={() => window.location.href = '/'}>
+            {/* Logo Section - Fixed Left Edge Alignment */}
+            <div className="flex items-center gap-2 cursor-pointer ml-0 pl-0" onClick={() => window.location.href = '/'}>
               <img 
                 src={logo} 
                 alt="Drawbridge Logo" 
-                className="w-6 h-6 md:w-8 md:h-8"
+                className="w-6 h-6 md:w-8 md:h-8 ml-2 md:ml-0" 
               />
               <span className="text-lg md:text-xl font-semibold text-gray-800">Drawbridge</span>
             </div>
@@ -190,7 +194,7 @@ function App() {
             </nav>
 
             {/* Mobile Menu */}
-            <button className="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 justify-self-end">
+            <button className="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 justify-self-end mr-2">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
@@ -199,6 +203,7 @@ function App() {
         </div>
       </header>
 
+      {/* Rest of the code remains the same */}
       {/* Hero Section */}
       <section className="min-h-screen flex flex-col justify-center pt-16 pb-16 px-2 sm:px-4">
         <div className="max-w-4xl mx-auto text-center">
