@@ -22,6 +22,7 @@ function App() {
     
     // Text-to-Speech
     { name: "ElevenLabs Helio", color: "#ffc107", type: "speech" },
+    { name: "OpenAI TTS-2", color: "#4285f4", type: "speech" },
     { name: "PlayHT 2.0", color: "#607d8b", type: "speech" },
   ];
 
@@ -100,7 +101,7 @@ function App() {
     {
       icon: <Server className="w-7 h-7" />,
       title: "Private Data",
-      description: "Enhanced privacy for sensitive interactions"
+      description: "Enhanced privacy for sensitive conversations"
     }
   ];
 
@@ -119,16 +120,16 @@ function App() {
     <div className="bg-white font-sans">
       {/* Fixed Header with Grid Layout */}
       <header className="fixed top-0 w-full bg-white border-b border-gray-100 z-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-[max-content_1fr_max-content] items-center h-16 gap-4">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4">
+          <div className="grid grid-cols-[max-content_1fr_max-content] items-center h-14 md:h-16 gap-2 md:gap-4">
             {/* Logo Section - Left Edge */}
             <div className="flex items-center gap-2">
               <img 
                 src={logo} 
                 alt="Drawbridge Logo" 
-                className="w-8 h-8"
+                className="w-6 h-6 md:w-8 md:h-8"
               />
-              <span className="text-xl font-semibold text-gray-800 pl-0 ml-0">Drawbridge</span>
+              <span className="text-lg md:text-xl font-semibold text-gray-800 pl-0 ml-0">Drawbridge</span>
             </div>
             
             {/* Navigation - Right Edge */}
@@ -154,8 +155,8 @@ function App() {
       <section className="min-h-screen flex flex-col justify-center pt-16 pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-16">
-            <div className="h-24 md:h-28 flex items-center justify-center mb-4">
-              <h1 className="text-5xl md:text-6xl font-bold text-center leading-tight">
+            <div className="h-auto min-h-16 md:h-28 flex items-center justify-center mb-4">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center leading-tight">
                 <span 
                   className={`inline-block transition-all duration-500 ease-in-out ${
                     transitioning ? 'opacity-0 transform -translate-y-2' : 'opacity-100 transform translate-y-0'
@@ -165,7 +166,6 @@ function App() {
                   <span 
                     style={{
                       color: aiModels[currentModel].color,
-                      display: 'inline'
                     }}
                   >
                     {aiModels[currentModel].name}
@@ -174,7 +174,7 @@ function App() {
               </h1>
             </div>
             <p className="text-xl md:text-2xl text-gray-600 mt-4 max-w-3xl mx-auto">
-              All the latest AI technology in one place
+              All the latest AI in one place
             </p>
           </div>
 
@@ -184,12 +184,12 @@ function App() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Your email"
-              className="w-full px-6 py-4 rounded-xl border border-gray-200 focus:border-gray-400 focus:outline-none mb-4 text-lg"
+              className="w-full px-4 py-3 md:px-6 md:py-4 rounded-xl border border-gray-200 focus:border-gray-400 focus:outline-none mb-4 text-base md:text-lg"
               required
             />
             <button
               type="submit"
-              className="w-full bg-gray-900 text-white px-6 py-4 rounded-xl hover:bg-gray-800 transition-all text-lg font-medium"
+              className="w-full bg-gray-900 text-white px-4 py-3 md:px-6 md:py-4 rounded-xl hover:bg-gray-800 transition-all text-base md:text-lg font-medium"
             >
               {showError ? (
                 <span className="text-red-300">Service not available yet</span>
@@ -210,26 +210,26 @@ function App() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="min-h-screen flex flex-col justify-center py-16 px-4 bg-gray-50">
+      <section id="features" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-2 sm:px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Fear of missing out?</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Access multiple AI models through a single interface</p>
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">Fear of missing out?</h2>
+            <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">Access multiple AI models through a single interface</p>
           </div>
           
           <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all"
+                className="bg-white p-4 md:p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all"
               >
-                <div className="w-14 h-14 bg-gray-900 text-white rounded-xl flex items-center justify-center mb-5">
+                <div className="w-12 h-12 md:w-14 md:h-14 bg-gray-900 text-white rounded-xl flex items-center justify-center mb-3 md:mb-5">
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 text-base">{feature.description}</p>
+                <p className="text-gray-600 text-sm md:text-base">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -237,52 +237,52 @@ function App() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="min-h-screen flex flex-col justify-center py-16 px-4">
+      <section id="pricing" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-2 sm:px-4">
         <div className="max-w-7xl mx-auto w-full">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Simple, transparent pricing</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Choose the plan that works best for you</p>
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">Simple, transparent pricing</h2>
+            <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">Choose the plan that works best for you</p>
           </div>
           
           <div className="flex flex-col md:flex-row justify-center items-stretch gap-8 mx-auto w-full max-w-6xl px-4">
-            <div className="flex-1 bg-gray-50 p-8 md:p-10 rounded-xl border border-gray-200 shadow-sm flex flex-col">
-              <div className="mb-8">
-                <h3 className="text-2xl font-bold text-gray-900">Free</h3>
-                <div className="mt-4 text-4xl font-bold">$0<span className="text-xl text-gray-500 font-normal">/month</span></div>
+            <div className="flex-1 bg-gray-50 p-6 md:p-8 lg:p-10 rounded-xl border border-gray-200 shadow-sm flex flex-col">
+              <div className="mb-6 md:mb-8">
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900">Free</h3>
+                <div className="mt-3 md:mt-4 text-3xl md:text-4xl font-bold">$0<span className="text-lg md:text-xl text-gray-500 font-normal">/month</span></div>
               </div>
               
-              <ul className="space-y-4 mb-8 flex-grow">
+              <ul className="space-y-3 md:space-y-4 mb-6 md:mb-8 flex-grow">
                 {[1, 2, 3].map((i) => (
                   <li key={i} className="flex items-center text-gray-700">
-                    <Check className="w-5 h-5 text-gray-900 mr-3 flex-shrink-0" />
-                    <span className="text-base">Lorem ipsum dolor sit amet</span>
+                    <Check className="w-4 h-4 md:w-5 md:h-5 text-gray-900 mr-2 md:mr-3 flex-shrink-0" />
+                    <span className="text-sm md:text-base">Lorem ipsum dolor sit amet</span>
                   </li>
                 ))}
               </ul>
               
-              <button className="w-full border-2 border-gray-900 text-gray-900 px-6 py-3 rounded-xl hover:bg-gray-200 transition-all font-medium">
+              <button className="w-full border-2 border-gray-900 text-gray-900 px-4 py-2 md:px-6 md:py-3 rounded-xl hover:bg-gray-200 transition-all font-medium">
                 Sign Up
               </button>
             </div>
 
-            <div className="flex-1 bg-gray-900 text-white p-8 md:p-10 rounded-xl shadow-md flex flex-col">
-              <div className="mb-8">
-                <h3 className="text-2xl font-bold">Premium</h3>
-                <div className="mt-4 text-4xl font-bold">$20<span className="text-xl text-gray-400 font-normal">/month</span></div>
+            <div className="flex-1 bg-gray-900 text-white p-6 md:p-8 lg:p-10 rounded-xl shadow-md flex flex-col">
+              <div className="mb-6 md:mb-8">
+                <h3 className="text-xl md:text-2xl font-bold">Premium</h3>
+                <div className="mt-3 md:mt-4 text-3xl md:text-4xl font-bold">$20<span className="text-lg md:text-xl text-gray-400 font-normal">/month</span></div>
               </div>
               
-              <ul className="space-y-4 mb-8 flex-grow">
+              <ul className="space-y-3 md:space-y-4 mb-6 md:mb-8 flex-grow">
                 {[1, 2, 3].map((i) => (
                   <li key={i} className="flex items-center">
-                    <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-3 flex-shrink-0">
-                      <Check className="w-3 h-3 text-white" />
+                    <div className="w-4 h-4 md:w-5 md:h-5 rounded-full bg-blue-500 flex items-center justify-center mr-2 md:mr-3 flex-shrink-0">
+                      <Check className="w-2 h-2 md:w-3 md:h-3 text-white" />
                     </div>
-                    <span className="text-base">Lorem ipsum dolor sit amet</span>
+                    <span className="text-sm md:text-base">Lorem ipsum dolor sit amet</span>
                   </li>
                 ))}
               </ul>
               
-              <button className="w-full bg-white text-gray-900 px-6 py-3 rounded-xl hover:bg-gray-100 transition-all font-medium">
+              <button className="w-full bg-white text-gray-900 px-4 py-2 md:px-6 md:py-3 rounded-xl hover:bg-gray-100 transition-all font-medium">
                 Coming Soon
               </button>
             </div>
