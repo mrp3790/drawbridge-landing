@@ -7,6 +7,7 @@ function App() {
   const [transitioning, setTransitioning] = useState(false);
   const [modelOrder, setModelOrder] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [modelFilter, setModelFilter] = useState('all');
 
   const aiModels = [
     // LLMs
@@ -37,6 +38,19 @@ function App() {
       default: return "Access to";
     }
   };
+
+  const getModelType = (type) => {
+    switch (type) {
+      case "llm": return "Language Model";
+      case "image": return "Image Generation";
+      case "speech": return "Text-to-Speech";
+      default: return type;
+    }
+  };
+
+  const filteredModels = modelFilter === 'all' 
+    ? aiModels 
+    : aiModels.filter(model => model.type === modelFilter);
 
   const shuffleArray = (array) => {
     const shuffled = [...array];
@@ -117,6 +131,7 @@ function App() {
             
             <nav className="hidden md:flex items-center justify-end gap-8">
               <a href="#features" className="text-gray-600 hover:text-gray-800 transition-all">Features</a>
+              <a href="#models" className="text-gray-600 hover:text-gray-800 transition-all">Models</a>
               <a href="#pricing" className="text-gray-600 hover:text-gray-800 transition-all">Pricing</a>
               <button className="bg-gray-900 text-white px-5 py-2 rounded-xl hover:bg-gray-800 transition-all">
                 Sign In
@@ -201,6 +216,49 @@ function App() {
                   {feature.title}
                 </h3>
                 <p className="text-gray-600 text-sm md:text-base">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* New Models Section */}
+      <section id="models" className="min-h-screen flex flex-col justify-center py-12 md:py-16 px-2 sm:px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">Explore Our Models</h2>
+            <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto">
+              Access the latest AI models all in one place
+            </p>
+            
+            {/* Model Type Filter */}
+            <div className="mt-6 max-w-xs mx-auto">
+              <select 
+                className="w-full px-4 py-2 rounded-xl border border-gray-200 focus:border-gray-400 focus:outline-none"
+                value={modelFilter}
+                onChange={(e) => setModelFilter(e.target.value)}
+              >
+                <option value="all">All Models</option>
+                <option value="llm">Language Models</option>
+                <option value="image">Image Generation</option>
+                <option value="speech">Text-to-Speech</option>
+              </select>
+            </div>
+          </div>
+          
+          {/* Models Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
+            {filteredModels.map((model, index) => (
+              <div 
+                key={index}
+                className="bg-white p-4 md:p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all flex flex-col"
+              >
+                <div 
+                  className="w-12 h-12 rounded-full mb-4 flex items-center justify-center" 
+                  style={{ backgroundColor: model.color }}
+                ></div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{model.name}</h3>
+                <p className="text-sm text-gray-600 capitalize">{getModelType(model.type)}</p>
               </div>
             ))}
           </div>
