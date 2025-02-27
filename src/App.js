@@ -166,7 +166,20 @@ function App() {
 
   return (
     <div className="bg-white font-sans">
-      {/* Fixed Header with Grid Layout */}
+    {/* Fixed Header with Grid Layout */}
+<header className="fixed top-0 w-full bg-white border-b border-gray-100 z-50">
+  <div className="w-full max-w-7xl mx-auto px-0 md:px-4 lg:px-6">
+    <div className="grid grid-cols-[max-content_1fr_max-content] items-center h-14 md:h-16 gap-2 md:gap-4">
+      {/* Logo Section - Left Edge */}
+      <div className="flex items-center gap-2 cursor-pointer pl-2 md:pl-0" onClick={() => window.location.href = '/'}>
+        <img 
+          src={logo} 
+          alt="Drawbridge Logo" 
+          className="w-6 h-6 md:w-8 md:h-8"
+        />
+        <span className="text-lg md:text-xl font-semibold text-gray-800">Drawbridge</span>
+      </div>
+            
       <header className="fixed top-0 w-full bg-white border-b border-gray-100 z-50">
         <div className="max-w-7xl mx-auto px-2 sm:px-4">
           <div className="grid grid-cols-[max-content_1fr_max-content] items-center h-14 md:h-16 gap-2 md:gap-4">
