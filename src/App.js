@@ -46,24 +46,31 @@ function App() {
     }
   };
 
-  // Randomize initial model on every page load
+  // Randomize initial model on page load
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * aiModels.length);
     setCurrentModel(randomIndex);
   }, []);
 
-  // Handle transitions with randomized next model
+  // Handle transitions with completely random selection each time
   useEffect(() => {
     const intervalId = setInterval(() => {
       setTransitioning(true);
+      
       setTimeout(() => {
-        setCurrentModel((prev) => (prev + 1) % aiModels.length);
+        // Pick a completely random model each time
+        let newIndex;
+        do {
+          newIndex = Math.floor(Math.random() * aiModels.length);
+        } while (newIndex === currentModel); // Ensure it's different from current
+        
+        setCurrentModel(newIndex);
         setTransitioning(false);
       }, 600);
     }, 3000);
 
     return () => clearInterval(intervalId);
-  }, [aiModels.length]);
+  }, [currentModel, aiModels.length]);
 
   const features = [
     {
@@ -101,23 +108,12 @@ function App() {
     setSubmitStatus('loading');
     
     try {
-      // First, try to create the waitlist collection if it doesn't exist
-      try {
-        // Save to Firebase Firestore
-        await addDoc(collection(db, "waitlist"), {
-          email: email,
-          timestamp: serverTimestamp(),
-          source: window.location.href
-        });
-      } catch (collectionError) {
-        console.error('Collection error:', collectionError);
-        // If there's a collection error, it might be because the collection doesn't exist
-        // In a production app, you would use Cloud Functions or a backend to handle this
-        // For now, we'll simulate success for testing
-        
-        // Just log the error but continue as if successful for demo purposes
-        console.log('Email would be saved:', email);
-      }
+      // Add to the waitlist collection
+      await addDoc(collection(db, "waitlist"), {
+        email: email,
+        timestamp: serverTimestamp(),
+        source: window.location.href
+      });
       
       // Success state
       setSubmitStatus('success');
