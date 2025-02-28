@@ -61,20 +61,14 @@ function App() {
       setTransitioning(true);
       setTimeout(() => {
         const nextIndex = (currentIndex + 1) % modelOrder.length;
-        if (nextIndex === 0) {
-          const newOrder = shuffleArray(Array.from({ length: aiModels.length }, (_, i) => i));
-          setModelOrder(newOrder);
-          setCurrentModel(newOrder[0]);
-        } else {
-          setCurrentModel(modelOrder[nextIndex]);
-        }
+        setCurrentModel(modelOrder[nextIndex]);
         setCurrentIndex(nextIndex);
         setTransitioning(false);
       }, 600);
     }, 3000);
 
     return () => clearInterval(intervalId);
-  }, [currentIndex, modelOrder, aiModels.length]);
+  }, [currentIndex, modelOrder]);
 
   const features = [
     {
