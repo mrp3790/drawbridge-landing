@@ -19,12 +19,12 @@ function App() {
     { name: "o3-mini", color: "#e91e63", type: "text" },
     
     // Image generation
-    { name: "DALL-E 3.5", color: "#e91e63", type: "image" },
-    { name: "Midjourney V6.1", color: "#8e44ad", type: "image" },
+    { name: "DALL-E 3.5", color: "#2dd4bf", type: "image" },  // Changed from #e91e63 to avoid o3-mini's color
+    { name: "Midjourney V6", color: "#6366f1", type: "image" }, // Changed from #8e44ad to avoid Grok-3's color
     { name: "Stable Diffusion 3.5", color: "#00bcd4", type: "image" },
     
     // Text-to-Speech
-    { name: "ElevenLabs Flash v2.5", color: "#ffc107", type: "audio" },
+    { name: "ElevenLabs Flash v2.5", color: "#f59e0b", type: "audio" }, // Changed from #ffc107 to avoid Llama-3.3's color
     { name: "Kokoro v1.0", color: "#9c27b0", type: "audio" },
     
   ];
@@ -96,11 +96,11 @@ function App() {
   return (
     <div className="bg-white font-sans">
       <header className="fixed top-0 w-full bg-white border-b border-gray-100 z-50">
-        {/* Changed container padding */}
+
         <div className="w-full max-w-7xl mx-auto relative px-4 sm:px-6 lg:px-8">
-          {/* Adjusted grid alignment */}
+
           <div className="grid grid-cols-[auto_1fr_auto] items-center h-14 md:h-16 w-full">
-            {/* Removed left margin */}
+
             <div 
               className="flex items-center gap-2 cursor-pointer -ml-2 md:-ml-1"
               onClick={() => window.location.href = '/'}
@@ -125,8 +125,7 @@ function App() {
           </div>
         </div>
       </header>
-
-      {/* Keep all other sections EXACTLY the same as before */}
+                
       <section className="min-h-screen flex flex-col justify-center pt-16 pb-16 px-2 sm:px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-8 md:mb-16">
