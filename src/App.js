@@ -20,7 +20,7 @@ function App() {
     
     // Image generation
     { name: "DALL-E 3.5", color: "#e91e63", type: "image" },
-    { name: "Midjourney V6", color: "#8e44ad", type: "image" },
+    { name: "Midjourney V6.1", color: "#8e44ad", type: "image" },
     { name: "Stable Diffusion 3.5", color: "#00bcd4", type: "image" },
     
     // Text-to-Speech
